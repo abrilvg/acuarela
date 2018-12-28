@@ -1,0 +1,13 @@
+.picture-name {
+  margin: 5px 0 0 0 !important;
+}
+.picture-author {
+  margin: 0 0 5px 0 !important;
+}
+/*to fit all semantic ui images in 170px*/
+.ui.medium.image {
+  height: 170px;
+  background-size: contain;
+  background-position: center;
+  background-repeat: no-repeat;
+}
