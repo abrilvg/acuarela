@@ -1,26 +1,25 @@
 import Immutable from 'seamless-immutable';
+import UserSession from "../UserSession";
+
+let userData = UserSession.getUser();
 
 //initial state
 const initalState = Immutable({
   user: {
-    isLoggedIn: localStorage.getItem('user_token') !== null,
+    isLoggedIn: UserSession.hasToken(),
     data: {
-      name: localStorage.getItem('user_name')? localStorage.getItem('user_name') : '',
-      _id: localStorage.getItem('user_id')? localStorage.getItem('user_id'): ''
+      name: userData.userName,
+      _id: userData.id
     }
   },
   loading: false,
   error: {},
 });
 
-export default (state = initalState, action={}) => {
+export default (state = initalState, action = {}) => {
   switch (action.type) {
     case 'CREATE_USER_FULFILLED': {
-      if (action.payload.data.token) {
-        localStorage.setItem('user_token', action.payload.data.token);
-        localStorage.setItem('user_name', action.payload.data.data.name);
-        localStorage.setItem('user_id', action.payload.data.data._id);
-      }
+      UserSession.saveUser(action.payload.data);
       return state.merge({
         user: {
           data: action.payload.data.data,
@@ -41,16 +40,12 @@ export default (state = initalState, action={}) => {
     case 'CREATE_USER_REJECTED': {
       return state.merge({
         loading: false,
-        error: action.payload.response? action.payload.response: { message: action.payload.message}
+        error: action.payload.response ? action.payload.response : { message: action.payload.message }
       });
     }
 
     case 'USER_LOGIN_FULFILLED': {
-      if (action.payload.data.token) {
-        localStorage.setItem('user_token', action.payload.data.token);
-        localStorage.setItem('user_name', action.payload.data.data.name);
-        localStorage.setItem('user_id', action.payload.data.data._id);
-      }
+      UserSession.saveUser(action.payload.data);
       return state.merge({
         user: {
           data: action.payload.data.data,
@@ -71,14 +66,12 @@ export default (state = initalState, action={}) => {
     case 'USER_LOGIN_REJECTED': {
       return state.merge({
         loading: false,
-        error: action.payload.response? action.payload.response: { message: action.payload.message}
+        error: action.payload.response ? action.payload.response : { message: action.payload.message }
       });
     }
 
     case 'USER_LOGOUT': {
-      localStorage.removeItem('user_token');
-      localStorage.removeItem('user_name');
-      localStorage.removeItem('user_id');
+      UserSession.deleteUser();
       return state.merge({
         user: {
           data: {},

@@ -23,7 +23,7 @@ class App extends Component {
 
     let navigation;
     if (this.props.user.isLoggedIn) {
-      navigation = <Navigation/>;
+      navigation = <Navigation />;
     }
 
     return (
@@ -31,7 +31,7 @@ class App extends Component {
         <div className="main">
           {navigation}
           <Switch>
-            <PrivateRoute authed={this.props.user.isLoggedIn} path="/" component={Home} exact/>
+            <PrivateRoute authed={this.props.user.isLoggedIn} path="/" component={Home} exact />
             <PrivateRoute authed={this.props.user.isLoggedIn} path="/history" component={HistoryComponent} />
             <PrivateRoute authed={this.props.user.isLoggedIn} path="/about" component={About} />
             <PrivateRoute authed={this.props.user.isLoggedIn} path="/contact" component={Contact} />

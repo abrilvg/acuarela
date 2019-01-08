@@ -1,4 +1,5 @@
 import Immutable from 'seamless-immutable';
+import UserSession from "../UserSession";
 
 const initalState = Immutable({
   acuarelas: [],
@@ -7,11 +8,12 @@ const initalState = Immutable({
   acuarela: {}
 });
 
-export default (state = initalState, action={}) => {
+export default (state = initalState, action = {}) => {
   switch (action.type) {
     case 'FETCH_ACUARELAS_FULFILLED': {
+      UserSession.setToken(action.payload.data.token); //should we trust token will always arrive?
       return state.merge({
-        acuarelas: action.payload.data,
+        acuarelas: action.payload.data.data,
         loading: false,
         error: {}
       });
@@ -28,7 +30,7 @@ export default (state = initalState, action={}) => {
       let payload = action.payload;
       return state.merge({
         loading: false,
-        error: payload.response? payload.response: { message: payload.message}
+        error: payload.response ? payload.response : { message: payload.message }
       });
     }
 
@@ -39,6 +41,7 @@ export default (state = initalState, action={}) => {
     }
 
     case 'SAVE_ACUARELA_FULFILLED': {
+      UserSession.setToken(action.payload.data.token);
       return state.merge({
         acuarelas: [...state.acuarelas, action.payload.data.data],
         error: {},
@@ -47,7 +50,7 @@ export default (state = initalState, action={}) => {
     }
 
     case 'SAVE_ACUARELA_REJECTED': {
-      const errors = { global: 'error'};
+      const errors = { global: 'error' };
       return state.merge({
         error: errors,
         loading: false
