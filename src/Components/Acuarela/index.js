@@ -12,17 +12,17 @@ export default class Picture extends React.Component {
     rating: PropTypes.number.isRequired
   };
   static defaultProps = {
-      name: 'Unknown name',
-      author: 'Unknown author',
-      pathImage: '',
-      rating: 0
+    name: 'Unknown name',
+    author: 'Unknown author',
+    pathImage: '',
+    rating: 0
   };
 
   constructor(props) {
     super(props);
     this.state = {
-        // qty: props.initialQty,
-        // total: 0
+      // qty: props.initialQty,
+      // total: 0
     };
   }
 
@@ -36,7 +36,7 @@ export default class Picture extends React.Component {
   render() {
     return (
       <Grid.Column>
-        <Image src={this.props.pathImage}  size='medium'/>
+        <Image src='https://react.semantic-ui.com/images/wireframe/image.png' /*src={this.props.pathImage}*/ size='medium' />
         <Header size='medium' className="picture-name">{this.props.name}</Header>
         <div className="picture-author">{this.props.author}</div>
         <Grid.Row>

@@ -1,11 +1,11 @@
 import React from "react";
 import { Modal, Button } from 'semantic-ui-react';
-// import "./PictureDetailForm.css";
+//import "./PictureDetailForm.css";
 import PropTypes from 'prop-types';
-// import { cloudinary } from 'cloudinary-react';
 import AcuarelaForm from "../../Components/AcuarelaForm";
 import { connect } from 'react-redux';
 import { saveAcuarela } from "../../Actions/acuarelaActions";
+import Uploader from '../../Components/Common/Uploader';
 
 class AcuarelaFormPage extends React.Component {
 
@@ -21,9 +21,11 @@ class AcuarelaFormPage extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      closeOnDimmerClick: false
+      closeOnDimmerClick: false,
+      name: 'pepe'
     };
   }
+
 
   close = () => {
     this.setState({
@@ -32,34 +34,24 @@ class AcuarelaFormPage extends React.Component {
     this.props.onCloseModal();
   }
 
-  uploadWidget() {
-    window.cloudinary.openUploadWidget(
-      {
-        cloud_name: 'daqshc3o8',
-        upload_preset: 'ehexf9gy',
-        tags:['xmas']
-      },
-      (error, result) => console.log(result)
-    );
-  }
-
   submit = (acuarela) => {
     console.log('submit acuarela', acuarela);
     this.props.saveAcuarela(acuarela);
     this.close();
-    // if(!contact._id) {
-    //   return this.props.saveContact(contact)
-    //     .then(response => this.setState({ redirect:true }))
-    //     .catch(err => {
-    //        throw new SubmissionError(this.props.errors)
-    //      })
-    // } else {
-    //   return this.props.updateContact(contact)
-    //     .then(response => this.setState({ redirect:true }))
-    //     .catch(err => {
-    //        throw new SubmissionError(this.props.errors)
-    //      })
-    // }
+
+    /*if(!contact._id) {
+      return this.props.saveContact(contact)
+        .then(response => this.setState({ redirect:true }))
+        .catch(err => {
+           throw new SubmissionError(this.props.errors)
+         })
+    } else {
+      return this.props.updateContact(contact)
+        .then(response => this.setState({ redirect:true }))
+        .catch(err => {
+           throw new SubmissionError(this.props.errors)
+         })
+    }*/
   }
 
   render() {
@@ -70,12 +62,8 @@ class AcuarelaFormPage extends React.Component {
           closeOnDimmerClick={this.state.closeOnDimmerClick}
         >
           <Modal.Content>
-            {/* cloudinary here */}
-            {/* <div className="upload">
-                <Button onClick={this.uploadWidget.bind(this)} className="upload-button">
-                    Add Image
-                </Button>
-            </div> */}
+            {this.state.name}
+            <Uploader />
             <AcuarelaForm contact={this.props.acuarela} loading={this.props.loading} onSubmit={this.submit} />
           </Modal.Content>
           <Modal.Actions>

@@ -49,7 +49,7 @@ class Navigation extends React.Component {
               <Input icon='search' placeholder='Search...' />
             </Menu.Item>
             <Menu.Item>
-              <Profile/>
+              <Profile />
             </Menu.Item>
             {/* <Menu.Item
               name='logout'
@@ -58,9 +58,6 @@ class Navigation extends React.Component {
             /> */}
           </Menu.Menu>
         </Menu>
-        <Placeholder className="ad">
-          <Placeholder.Image />
-        </Placeholder>
       </div>
     );
   }

@@ -1,6 +1,6 @@
 import React from "react";
 import "./Login.css";
-import { Button, Form, Input, Grid, Message, Icon } from 'semantic-ui-react';
+import { Button, Form, Input, Grid, Message, Icon, Header } from 'semantic-ui-react';
 import 'react-semantic-ui-datepickers/dist/react-semantic-ui-datepickers.css';
 import CustomField from "../../../Components/Common/CustomField";
 import ValidatorHelper from "../../../Components/Common/Validator";
@@ -37,8 +37,8 @@ class Login extends React.Component {
         <Message icon negative>
           <Icon name='dont' />
           <Message.Content>
-              <Message.Header>{error.data? error.data.message: error.message}</Message.Header>
-              Please try again
+            <Message.Header>{error.data ? error.data.message : error.message}</Message.Header>
+            Please try again
          </Message.Content>
         </Message>
       );
@@ -48,40 +48,52 @@ class Login extends React.Component {
 
     return (
       <div>
-        <Form loading={loading} onSubmit={this.handleSubmit} error>
-          <CustomField
-            name='email'
-            label='Email:'
-            control={Input}
-            placeholder='e.g. joe@schmoe.com'
-            validators={[ValidatorHelper.notEmptyText(), ValidatorHelper.matchEmail()]}
-            onChange={this.handleChange}
-            required={true}
-          />
+        <Grid columns={3} container>
+          <Grid.Column>
+          </Grid.Column>
+          <Grid.Column>
+            <Header as='h2' textAlign='center'>
+              <Icon.Group size='large'>
+                <Icon name='twitter' />
+                <Icon corner name='add' />
+              </Icon.Group>
+              ACUAS
+            </Header>
 
-          <CustomField
-            name='password'
-            label='Password:'
-            type='password'
-            placeholder='Enter password'
-            validators={[ValidatorHelper.notEmptyText(), ValidatorHelper.maxLength(15), ValidatorHelper.minLength(8)]}
-            onChange={this.handleChange}
-            required={true}
-          />
+            <Form loading={loading} onSubmit={this.handleSubmit} error>
 
-          <Grid>
-            <Grid.Row columns={2}>
-              <Grid.Column>
-                <Form.Input control={Button}>Submit</Form.Input>
-              </Grid.Column>
-              <Grid.Column>
+              <CustomField
+                name='email'
+                label='Email:'
+                control={Input}
+                placeholder='e.g. joe@schmoe.com'
+                validators={[ValidatorHelper.notEmptyText(), ValidatorHelper.matchEmail()]}
+                onChange={this.handleChange}
+                required={true}
+              />
+
+              <CustomField
+                name='password'
+                label='Password:'
+                type='password'
+                placeholder='Enter password'
+                validators={[ValidatorHelper.notEmptyText(), ValidatorHelper.maxLength(15), ValidatorHelper.minLength(8)]}
+                onChange={this.handleChange}
+                required={true}
+              />
+
+              <div>
+                <Button control={Button} primary>Login</Button>
                 <Link to="/signup">Sign up</Link>
-              </Grid.Column>
-            </Grid.Row>
-          </Grid>
+              </div>
 
-        </Form>
-        {errorMessage}
+            </Form>
+            {errorMessage}
+
+          </Grid.Column>
+          <Grid.Column>
+          </Grid.Column>
+        </Grid>
       </div>
     );
   }
@@ -95,4 +107,4 @@ function mapStateToProps(state) {
   }
 }
 
-export default connect(mapStateToProps, {loginUser})(Login);
+export default connect(mapStateToProps, { loginUser })(Login);
