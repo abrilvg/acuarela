@@ -6,6 +6,7 @@ import AcuarelaFormPage from "../AcuarelaFormPage";
 import AcuarelasList from "../../Components/AcuarelasList";
 import { getAllAcuarelas, cleanAcuarelas } from "../../Actions/acuarelaActions";
 import { logoutUser } from "../../Actions/userActions";
+import { withRouter } from "react-router-dom";
 
 class Home extends React.Component {
 
@@ -13,20 +14,16 @@ class Home extends React.Component {
     this.props.getAllAcuarelas();
   }
 
-  state = {
-    openNewPicture: false
+  addAcuarela = () => {
+    this.props.history.push('/acuarela-form');
   }
-
-  closeConfigShow = () => () => this.setState({ openNewPicture: true })
-
-  closeModal = () => this.setState({ openNewPicture: false })
 
   render() {
     return (
       <div className="home">
         <Grid.Row>
           <Header as='h2'>Francisco Tomé</Header>&nbsp;<span>127 results</span>
-          <Button onClick={this.closeConfigShow()}>No Close on Dimmer Click</Button>
+          <Button onClick={this.addAcuarela}>Add acuarela</Button>
         </Grid.Row>
         <AcuarelasList
           acuarelas={this.props.acuarelas}
@@ -35,7 +32,6 @@ class Home extends React.Component {
           logoutUser={this.props.logoutUser}
           cleanAcuarelas={this.props.cleanAcuarelas}
         />
-        <AcuarelaFormPage open={this.state.openNewPicture} onCloseModal={this.closeModal}/>
       </div>
     );
   }
@@ -49,4 +45,4 @@ function mapStateToProps(state) {
   }
 }
 
-export default connect(mapStateToProps, {getAllAcuarelas, logoutUser, cleanAcuarelas})(Home);
+export default connect(mapStateToProps, {getAllAcuarelas, logoutUser, cleanAcuarelas})(withRouter(Home));

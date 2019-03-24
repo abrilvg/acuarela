@@ -5,6 +5,7 @@ import ValidatorHelper from "../Common/Validator";
 import { Button, Form, Input, Select, Grid} from 'semantic-ui-react';
 import SemanticDatepicker from 'react-semantic-ui-datepickers';
 import 'react-semantic-ui-datepickers/dist/react-semantic-ui-datepickers.css';
+import Uploader from "../Common/Uploader";
 
 const countryOptions = [
   { key: 'ar', value: 'ar', flag: 'ar', text: 'Argentina' },
@@ -27,10 +28,10 @@ const techniqueOptions = [
 class AcuarelaForm extends Component {
 
   componentWillReceiveProps = (nextProps) => { // Load Acuarela Asynchronously
-    const { acuarela } = nextProps;
+    /*const { acuarela } = nextProps;
     if(acuarela._id !== this.props.acuarela._id) { // Initialize form only once
       this.props.initialize(acuarela)
-    }
+    }*/
   }
 
   state = {
@@ -117,6 +118,8 @@ class AcuarelaForm extends Component {
 
             <Button primary type='submit'>Save</Button>
           </Form>
+
+          <Uploader/>
 
         </Grid.Column>
       </Grid>

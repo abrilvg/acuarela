@@ -1,38 +1,26 @@
 import React from "react";
-import { Modal, Button } from 'semantic-ui-react';
 //import "./PictureDetailForm.css";
 import PropTypes from 'prop-types';
 import AcuarelaForm from "../../Components/AcuarelaForm";
 import { connect } from 'react-redux';
 import { saveAcuarela } from "../../Actions/acuarelaActions";
-import Uploader from '../../Components/Common/Uploader';
 
 class AcuarelaFormPage extends React.Component {
 
   static propTypes = {
-    open: PropTypes.bool.isRequired,
-    onCloseModal: PropTypes.func.isRequired,
+    open: PropTypes.bool.isRequired
   };
   static defaultProps = {
-    open: false,
-    onCloseModal: () => {},
+    open: false
   };
 
   constructor(props) {
     super(props);
     this.state = {
-      closeOnDimmerClick: false,
       name: 'pepe'
     };
   }
 
-
-  close = () => {
-    this.setState({
-      closeOnDimmerClick: true
-    });
-    this.props.onCloseModal();
-  }
 
   submit = (acuarela) => {
     console.log('submit acuarela', acuarela);
@@ -57,21 +45,8 @@ class AcuarelaFormPage extends React.Component {
   render() {
     return (
       <div>
-        <Modal
-          open={this.props.open}
-          closeOnDimmerClick={this.state.closeOnDimmerClick}
-        >
-          <Modal.Content>
-            {this.state.name}
-            <Uploader />
-            <AcuarelaForm contact={this.props.acuarela} loading={this.props.loading} onSubmit={this.submit} />
-          </Modal.Content>
-          <Modal.Actions>
-            <Button onClick={this.close} negative>
-              Cancel
-            </Button>
-          </Modal.Actions>
-        </Modal>
+        {this.state.name}
+        <AcuarelaForm contact={this.props.acuarela} loading={this.props.loading} onSubmit={this.submit} />
       </div>
     );
   }

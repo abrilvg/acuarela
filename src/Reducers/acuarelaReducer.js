@@ -2,6 +2,7 @@ import Immutable from 'seamless-immutable';
 import UserSession from "../UserSession";
 
 const initalState = Immutable({
+  acuarela: {},
   acuarelas: [],
   loading: false,
   error: {},
@@ -43,6 +44,7 @@ export default (state = initalState, action = {}) => {
     case 'SAVE_ACUARELA_FULFILLED': {
       UserSession.setToken(action.payload.data.token);
       return state.merge({
+        acuarela: action.payload.data.data,
         acuarelas: [...state.acuarelas, action.payload.data.data],
         error: {},
         loading: false

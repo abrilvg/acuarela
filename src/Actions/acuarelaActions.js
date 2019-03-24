@@ -3,7 +3,6 @@ import { GET, POST } from "../Api";
 const url = 'acuarelas';
 
 export const getAllAcuarelas = () => {
-  console.log('get all acuaas');
   return dispatch => {
     dispatch({
       type: 'FETCH_ACUARELAS',

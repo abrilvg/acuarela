@@ -3,6 +3,7 @@ import './App.css';
 import { BrowserRouter, Route, Switch } from "react-router-dom"
 import Home from "./Pages/Home";
 import About from "./Components/About";
+import AcuarelaFormPage from "./Pages/AcuarelaFormPage";
 import Contact from "./Components/Contact";
 import ErrorComponent from "./Components/Error";
 import Navigation from "./Pages/Navigation";
@@ -35,6 +36,7 @@ class App extends Component {
             <PrivateRoute authed={this.props.user.isLoggedIn} path="/history" component={HistoryComponent} />
             <PrivateRoute authed={this.props.user.isLoggedIn} path="/about" component={About} />
             <PrivateRoute authed={this.props.user.isLoggedIn} path="/contact" component={Contact} />
+            <PrivateRoute authed={this.props.user.isLoggedIn} path="/acuarela-form" component={AcuarelaFormPage} />
             <Route path="/login" component={Login} />
             <Route path="/signup" component={Signup} />
             <Route component={ErrorComponent} />
