@@ -1,6 +1,9 @@
+
 import React from 'react';
 import * as firebase from 'firebase';
-import UploadImage from "./UploadImage";
+import { Form} from 'semantic-ui-react';
+import PropTypes from 'prop-types';
+import IDGenerator from '../IdGenerator';
 
 var config = {
   apiKey: "AIzaSyBD4K23nKLiuNpiBVjiy4oTVABNL3KHiAA",
@@ -14,39 +17,42 @@ firebase.initializeApp(config);
 
 class Uploader extends React.Component {
 
+  static propTypes = {
+    label: PropTypes.string.isRequired,
+    onChange: PropTypes.func.isRequired,
+  };
+
   constructor () {
-    super()
+    super();
     this.state = {
-      allFiles : {}
+      files: []
     }
   }
 
-  handleOnChange (event) {
-
+  handleChange = (event) => {
     const files = event.target.files;
     Array.from(files).forEach(file => {
-      const storageRef = firebase.storage().ref(`pictures/${file.name}`);
+      const fileName = IDGenerator.generateId();
+      const storageRef = firebase.storage().ref(`pictures/${fileName}`);
       const task = storageRef.put(file);
 
       task.on('state_changed', (snapshot) => {
-        let percentage = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
-        this.setState({
-          allFiles: {
-            [file.name]: { ...percentage }
-          }
-        })
+        //TODO do something with the percentage
+        // let percentage = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
       }, (error) => {
         this.setState({
           message: `Error when uploading ${error}`
         });
       }, () => {
-        let me = this;
-        task.snapshot.ref.getDownloadURL().then(function(url) {
-          me.setState({
-            allFiles: {
-              [file.name]: { url, percentage: 100 }
-            }
+        task.snapshot.ref.getDownloadURL().then((downloadURL) => {
+          this.setState({
+            files: [...this.state.files, downloadURL ]
           })
+          //to save in db
+          this.props.onChange({
+            name: fileName,
+            url: downloadURL
+          });
         });
       })
     });
@@ -55,17 +61,17 @@ class Uploader extends React.Component {
   render () {
     return (
       <div>
-        <input type='file' onChange={this.handleOnChange.bind(this)} multiple/>
+        <Form.Input
+          label={this.props.label}
+          onChange={this.handleChange}
+          type='file'
+          multiple
+        />
         {
-          Object.keys(this.state.allFiles).map((key, index) => {
-            console.log('### start ###', key, index, '############## end ##########');
-            let file = this.state.allFiles[key];
+          this.state.files.map((url, index) => {
             return (
-              <UploadImage
-                key={index}
-                url={file? file.url: ''}
-                percentage={file? file.percentage: 0}
-              />
+              // <Progress percent={this.props.percentage} progress success={this.props.percentage === 100}></Progress>
+              <img key={index} width='190' src={url} />
             );
           })
         }

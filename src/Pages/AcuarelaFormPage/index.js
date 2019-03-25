@@ -25,7 +25,8 @@ class AcuarelaFormPage extends React.Component {
   submit = (acuarela) => {
     console.log('submit acuarela', acuarela);
     this.props.saveAcuarela(acuarela);
-    this.close();
+
+    //TODO go to home?
 
     /*if(!contact._id) {
       return this.props.saveContact(contact)

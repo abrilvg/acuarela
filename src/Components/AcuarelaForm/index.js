@@ -43,7 +43,8 @@ class AcuarelaForm extends Component {
     material: 'default',
     country: countryOptions[0].value,
     approved: '',
-    rating: '5'
+    rating: '5',
+    files: []
   };
 
   handleChangeStartDate = (date) => {
@@ -60,7 +61,13 @@ class AcuarelaForm extends Component {
 
   handleChange = (name, value) => {
     this.setState({ [name]: value });
-  };
+  }
+
+  handleUploadFiles = (newFile) => {
+    this.setState({
+      files: [...this.state.files, newFile ]
+    })
+  }
 
   handleSubmit = (e) => {
     this.props.onSubmit(this.state);
@@ -68,6 +75,7 @@ class AcuarelaForm extends Component {
 
   render() {
     const { pristine, submitting, loading, acuarela } = this.props;
+    //TODO missing add a loading while uploading pictures, loading should be general and able to read from anywhere
     return (
       <Grid centered columns={2}>
         <Grid.Column>
@@ -116,10 +124,13 @@ class AcuarelaForm extends Component {
               options={countryOptions}
             />
 
+            <Uploader
+              label='Select your pictures:'
+              onChange={this.handleUploadFiles}
+            />
+
             <Button primary type='submit'>Save</Button>
           </Form>
-
-          <Uploader/>
 
         </Grid.Column>
       </Grid>
