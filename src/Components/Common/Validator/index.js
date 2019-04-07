@@ -1,11 +1,19 @@
 const ValidatorHelper = {
+    notEmptyValue: () => {
+        return {
+            isValid: (value) => {
+                return value? true: false;
+            },
+            getMessage: () => 'Not allowed to be an empty value'
+        }
+    },
     //strings
     notEmptyText: () => {
         return {
             isValid: (value) => {
                 return value !== "";
             },
-            getMessage: () => 'Not allowed to be an empty value'
+            getMessage: () => 'Not allowed to be an empty string'
         }
     },
     isString : () => {

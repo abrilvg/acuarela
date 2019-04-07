@@ -1,7 +1,7 @@
 import React from 'react';
 import { withRouter } from "react-router-dom";
 import "./Navigation.css";
-import { Input, Placeholder, Menu } from 'semantic-ui-react';
+import { Input, Menu } from 'semantic-ui-react';
 import Profile from '../../Components/Profile';
 
 class Navigation extends React.Component {

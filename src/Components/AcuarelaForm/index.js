@@ -3,9 +3,10 @@ import { reduxForm } from 'redux-form';
 import CustomField from "../Common/CustomField";
 import ValidatorHelper from "../Common/Validator";
 import { Button, Form, Input, Select, Grid} from 'semantic-ui-react';
-import SemanticDatepicker from 'react-semantic-ui-datepickers';
+import { DateInput } from 'semantic-ui-calendar-react';
 import 'react-semantic-ui-datepickers/dist/react-semantic-ui-datepickers.css';
 import Uploader from "../Common/Uploader";
+import PropTypes from 'prop-types';
 
 const countryOptions = [
   { key: 'ar', value: 'ar', flag: 'ar', text: 'Argentina' },
@@ -27,6 +28,11 @@ const techniqueOptions = [
 
 class AcuarelaForm extends Component {
 
+  static propTypes = {
+    loading: PropTypes.bool.isRequired,
+    error: PropTypes.object
+  };
+
   componentWillReceiveProps = (nextProps) => { // Load Acuarela Asynchronously
     /*const { acuarela } = nextProps;
     if(acuarela._id !== this.props.acuarela._id) { // Initialize form only once
@@ -36,26 +42,19 @@ class AcuarelaForm extends Component {
 
   state = {
     name: '',
-    startDate: null,
-    endDate: null,
+    createdDate: '',
     image: '',
-    technique: '',
+    technique: techniqueOptions[0].value,
     material: 'default',
     country: countryOptions[0].value,
     approved: '',
     rating: '5',
-    files: []
+    images: []
   };
 
-  handleChangeStartDate = (date) => {
+  handleChangeDate = (event, {name, value}) => {
     this.setState({
-      startDate: date
-    });
-  }
-
-  handleChangeEndDate = (date) => {
-    this.setState({
-      endDate: date
+      [name]: value
     });
   }
 
@@ -63,19 +62,35 @@ class AcuarelaForm extends Component {
     this.setState({ [name]: value });
   }
 
-  handleUploadFiles = (newFile) => {
+  handleUploadImages = (newImage) => {
     this.setState({
-      files: [...this.state.files, newFile ]
+      images: [...this.state.images, newImage ]
     })
   }
 
   handleSubmit = (e) => {
-    this.props.onSubmit(this.state);
+    this.setState({
+      //how to improve this?
+      createdDate: new Date(this.state.createdDate)
+    }, () => {
+      this.props.onSubmit(this.state);
+    });
+  }
+
+  isSubmitEnabled = () => {
+    return ValidatorHelper.notEmptyText().isValid(this.state.name) &&
+      ValidatorHelper.notEmptyValue().isValid(this.state.createdDate) &&
+      ValidatorHelper.notEmptyText().isValid(this.state.technique) &&
+      ValidatorHelper.notEmptyText().isValid(this.state.country) &&
+      this.state.images.length > 0;
   }
 
   render() {
-    const { pristine, submitting, loading, acuarela } = this.props;
-    //TODO missing add a loading while uploading pictures, loading should be general and able to read from anywhere
+    //TODO is correct put here this validations?
+    let isSubmitEnabled = this.isSubmitEnabled();
+
+    const { pristine, submitting, loading, acuarela, error } = this.props;
+
     return (
       <Grid centered columns={2}>
         <Grid.Column>
@@ -92,14 +107,16 @@ class AcuarelaForm extends Component {
               required={true}
             />
 
-            <SemanticDatepicker label="Start date"
-              onDateChange={this.handleChangeStartDate}
-              required
-            />
-
-            <SemanticDatepicker label="End date"
-              onDateChange={this.handleChangeEndDate}
-              required
+            <DateInput
+                clearable
+                name='createdDate'
+                value={this.state.createdDate}
+                onChange={this.handleChangeDate}
+                maxDate={new Date()}
+                popupPosition='bottom right'
+                closable
+                label='Year of:'
+                placeholder="DD-MM-YYYY"
             />
 
             <CustomField
@@ -126,11 +143,13 @@ class AcuarelaForm extends Component {
 
             <Uploader
               label='Select your pictures:'
-              onChange={this.handleUploadFiles}
+              onChange={this.handleUploadImages}
             />
 
-            <Button primary type='submit'>Save</Button>
+            <Button primary type='submit' disabled={!isSubmitEnabled}>Save</Button>
           </Form>
+
+          {error}
 
         </Grid.Column>
       </Grid>

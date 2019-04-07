@@ -2,7 +2,6 @@ import React from "react";
 import { Grid, Header, Button } from 'semantic-ui-react';
 import "./Home.css";
 import { connect } from 'react-redux';
-import AcuarelaFormPage from "../AcuarelaFormPage";
 import AcuarelasList from "../../Components/AcuarelasList";
 import { getAllAcuarelas, cleanAcuarelas } from "../../Actions/acuarelaActions";
 import { logoutUser } from "../../Actions/userActions";

@@ -3,7 +3,13 @@ import React from 'react';
 import * as firebase from 'firebase';
 import { Form} from 'semantic-ui-react';
 import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
 import IDGenerator from '../IdGenerator';
+import {
+  errorLoadingPictures,
+  successLoadingPictures,
+  startLoadingPictures
+} from '../../../Actions/acuarelaActions';
 
 var config = {
   apiKey: "AIzaSyBD4K23nKLiuNpiBVjiy4oTVABNL3KHiAA",
@@ -25,12 +31,19 @@ class Uploader extends React.Component {
   constructor () {
     super();
     this.state = {
-      files: []
+      files: [],
+      allAmount: 0
     }
   }
 
   handleChange = (event) => {
     const files = event.target.files;
+
+    this.setState({
+      allAmount: this.state.allAmount + files.length
+    });
+    this.props.startLoadingPictures();
+
     Array.from(files).forEach(file => {
       const fileName = IDGenerator.generateId();
       const storageRef = firebase.storage().ref(`pictures/${fileName}`);
@@ -40,13 +53,16 @@ class Uploader extends React.Component {
         //TODO do something with the percentage
         // let percentage = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
       }, (error) => {
-        this.setState({
-          message: `Error when uploading ${error}`
-        });
+        this.props.errorLoadingPictures(`Error when uploading ${error}`);
+
       }, () => {
         task.snapshot.ref.getDownloadURL().then((downloadURL) => {
           this.setState({
             files: [...this.state.files, downloadURL ]
+          }, () => {
+            if (this.state.files.length === this.state.allAmount) {
+              this.props.successLoadingPictures();
+            }
           })
           //to save in db
           this.props.onChange({
@@ -66,12 +82,13 @@ class Uploader extends React.Component {
           onChange={this.handleChange}
           type='file'
           multiple
+          required
         />
         {
           this.state.files.map((url, index) => {
             return (
               // <Progress percent={this.props.percentage} progress success={this.props.percentage === 100}></Progress>
-              <img key={index} width='190' src={url} />
+              <img key={index} width='190' src={url} alt={`Acuarela nro ${index}`} />
             );
           })
         }
@@ -79,5 +96,8 @@ class Uploader extends React.Component {
     )
   }
 }
+function mapStateToProps(state) {
+  return {}
+}
 
-export default Uploader;
+export default connect(mapStateToProps, {startLoadingPictures, successLoadingPictures, errorLoadingPictures})(Uploader);

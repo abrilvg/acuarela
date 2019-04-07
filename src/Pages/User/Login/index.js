@@ -1,12 +1,14 @@
 import React from "react";
-import "./Login.css";
-import { Button, Form, Input, Grid, Message, Icon, Header } from 'semantic-ui-react';
-import 'react-semantic-ui-datepickers/dist/react-semantic-ui-datepickers.css';
-import CustomField from "../../../Components/Common/CustomField";
-import ValidatorHelper from "../../../Components/Common/Validator";
 import { Redirect, Link } from "react-router-dom";
-import { loginUser } from "../../../Actions/userActions";
+import { Button, Form, Input, Grid, Message, Icon, Header } from 'semantic-ui-react';
 import { connect } from 'react-redux';
+
+import CustomField from "../../../Components/Common/CustomField";
+import { loginUser } from "../../../Actions/userActions";
+import ValidatorHelper from "../../../Components/Common/Validator";
+
+import "./Login.css";
+import 'react-semantic-ui-datepickers/dist/react-semantic-ui-datepickers.css';
 
 class Login extends React.Component {
 
@@ -22,15 +24,25 @@ class Login extends React.Component {
     this.setState({ [name]: value });
   };
 
-  handleSubmit = (e) => {
-    //clear state?
+  handleSubmit = () => {
     this.props.loginUser(this.state);
+  }
+
+  isSubmitEnabled = () => {
+    return ValidatorHelper.notEmptyText().isValid(this.state.email) &&
+      ValidatorHelper.matchEmail().isValid(this.state.email) &&
+      ValidatorHelper.notEmptyText().isValid(this.state.password) &&
+      ValidatorHelper.minLength(8).isValid(this.state.password) &&
+      ValidatorHelper.maxLength(15).isValid(this.state.password);
   }
 
   render() {
     let { loading, user, error } = this.props;
 
     let errorMessage;
+
+    //TODO is correct put here this validations?
+    let isSubmitEnabled = this.isSubmitEnabled();
 
     if (error.data || error.message) {
       errorMessage = (
@@ -54,8 +66,7 @@ class Login extends React.Component {
           <Grid.Column>
             <Header as='h2' textAlign='center'>
               <Icon.Group size='large'>
-                <Icon name='twitter' />
-                <Icon corner name='add' />
+                <Icon name='paint brush' />
               </Icon.Group>
               ACUAS
             </Header>
@@ -83,7 +94,7 @@ class Login extends React.Component {
               />
 
               <div>
-                <Button control={Button} primary>Login</Button>
+                <Button control={Button} primary disabled={!isSubmitEnabled}>Login</Button>
                 <Link to="/signup">Sign up</Link>
               </div>
 

@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 import AcuarelaForm from "../../Components/AcuarelaForm";
 import { connect } from 'react-redux';
 import { saveAcuarela } from "../../Actions/acuarelaActions";
+import { withRouter } from "react-router-dom";
 
 class AcuarelaFormPage extends React.Component {
 
@@ -21,12 +22,9 @@ class AcuarelaFormPage extends React.Component {
     };
   }
 
-
   submit = (acuarela) => {
-    console.log('submit acuarela', acuarela);
     this.props.saveAcuarela(acuarela);
-
-    //TODO go to home?
+    this.props.history.push('/');
 
     /*if(!contact._id) {
       return this.props.saveContact(contact)
@@ -47,7 +45,12 @@ class AcuarelaFormPage extends React.Component {
     return (
       <div>
         {this.state.name}
-        <AcuarelaForm contact={this.props.acuarela} loading={this.props.loading} onSubmit={this.submit} />
+        <AcuarelaForm
+          contact={this.props.acuarela}
+          loading={this.props.loading}
+          onSubmit={this.submit}
+          error={this.props.error}
+        />
       </div>
     );
   }
@@ -56,9 +59,9 @@ class AcuarelaFormPage extends React.Component {
 function mapStateToProps(state) {
   return {
     acuarela: state.acuarelaStore.acuarela,
-    errors: state.acuarelaStore.errors,
+    error: state.acuarelaStore.error,
     loading: state.acuarelaStore.loading
   }
 }
 
-export default connect(mapStateToProps, {saveAcuarela})(AcuarelaFormPage);
+export default connect(mapStateToProps, {saveAcuarela})(withRouter(AcuarelaFormPage));

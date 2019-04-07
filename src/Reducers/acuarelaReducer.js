@@ -4,9 +4,8 @@ import UserSession from "../UserSession";
 const initalState = Immutable({
   acuarela: {},
   acuarelas: [],
-  loading: false,
   error: {},
-  acuarela: {}
+  loading: false
 });
 
 export default (state = initalState, action = {}) => {
@@ -61,6 +60,25 @@ export default (state = initalState, action = {}) => {
 
     case 'CLEAN_ACUARELAS': {
       return initalState;
+    }
+
+    case 'LOADING_ACUARELA_STARTS': {
+      return state.merge({
+        loading: true
+      });
+    }
+
+    case 'LOADING_ACUARELA_SUCCESS': {
+      return state.merge({
+        loading: false
+      });
+    }
+
+    case 'LOADING_ACUARELA_ERROR': {
+      return state.merge({
+        loading: false,
+        error: action.error
+      });
     }
 
     default:

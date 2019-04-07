@@ -27,3 +27,28 @@ export const cleanAcuarelas = () => {
     });
   }
 }
+
+export const startLoadingPictures = () => {
+  return dispatch => {
+    dispatch({
+      type: 'LOADING_ACUARELA_STARTS'
+    });
+  }
+}
+
+export const successLoadingPictures = () => {
+  return dispatch => {
+    dispatch({
+      type: 'LOADING_ACUARELA_SUCCESS'
+    });
+  }
+}
+
+export const errorLoadingPictures = (error) => {
+  return dispatch => {
+    dispatch({
+      type: 'LOADING_ACUARELA_ERROR',
+      error
+    });
+  }
+}

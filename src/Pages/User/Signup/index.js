@@ -1,15 +1,17 @@
 import React from "react";
-import "./Signup.css";
-import { Button, Form, Input, Select, TextArea, Grid} from 'semantic-ui-react';
-import SemanticDatepicker from 'react-semantic-ui-datepickers';
-import 'react-semantic-ui-datepickers/dist/react-semantic-ui-datepickers.css';
-import CustomField from "../../../Components/Common/CustomField";
-import ValidatorHelper from "../../../Components/Common/Validator";
-import { createUser } from "../../../Actions/userActions";
 import { Redirect, Link } from "react-router-dom";
 import { Message, Icon } from 'semantic-ui-react';
 import { connect } from 'react-redux';
+import { Button, Form, Input, Select, TextArea, Grid, Header} from 'semantic-ui-react';
+import { DateInput } from 'semantic-ui-calendar-react';
 
+import CustomField from "../../../Components/Common/CustomField";
+import { createUser } from "../../../Actions/userActions";
+import ValidatorHelper from "../../../Components/Common/Validator";
+
+import "./Signup.css";
+
+//where to save this?
 const countryOptions = [
   { key: 'ar', value: 'ar', flag: 'ar', text: 'Argentina' },
   { key: 'bo', value: 'bo', flag: 'bo', text: 'Bolivia' },
@@ -34,29 +36,51 @@ class Signup extends React.Component {
     description: ''
   };
 
-  handleChangeDate = (date) => {
+  handleChangeDate = (event, {name, value}) => {
     this.setState({
-      birthDate: date
+      [name]: value
     });
   }
 
   handleChange = (name, value) => {
     this.setState({
       [name]: value
-    }, () => {
-      // console.log(this.state);
     });
   };
 
-  handleSubmit = (e) => {
-    //clear state?
-    this.props.createUser(this.state);
+  handleSubmit = () => {
+    this.setState({
+      birthDate: new Date(this.state.birthDate)
+    }, () => {
+      this.props.createUser(this.state);
+    });
   }
+
+  isSubmitEnabled = () => {
+
+    //TODO date valitation is missing
+    return ValidatorHelper.notEmptyText().isValid(this.state.name) &&
+      ValidatorHelper.maxLength(35).isValid(this.state.name) &&
+      ValidatorHelper.notEmptyText().isValid(this.state.userName) &&
+      ValidatorHelper.maxLength(35).isValid(this.state.userName) &&
+      ValidatorHelper.notEmptyValue().isValid(this.state.birthDate) &&
+      ValidatorHelper.notEmptyText().isValid(this.state.country) &&
+      ValidatorHelper.matchPhoneNumber().isValid(this.state.phoneNumber) &&
+      ValidatorHelper.notEmptyText().isValid(this.state.email) &&
+      ValidatorHelper.matchEmail().isValid(this.state.email) &&
+      ValidatorHelper.notEmptyText().isValid(this.state.password) &&
+      ValidatorHelper.minLength(8).isValid(this.state.password) &&
+      ValidatorHelper.maxLength(15).isValid(this.state.password) &&
+      ValidatorHelper.maxLength(300).isValid(this.state.description);
+    }
 
   render() {
     let { loading, user, error } = this.props;
 
     let errorMessage;
+
+    //TODO is correct put here this validations?
+    let isSubmitEnabled = this.isSubmitEnabled();
 
     if (error.data || error.message) {
       errorMessage = (
@@ -74,96 +98,121 @@ class Signup extends React.Component {
 
     return (
       <div>
-        <Form loading={loading} onSubmit={this.handleSubmit} error>
-          <CustomField
-            name='name'
-            label='Full name:'
-            control={Input}
-            placeholder='Enter your full name'
-            validators={[ValidatorHelper.notEmptyText(), ValidatorHelper.maxLength(35)]}
-            onChange={this.handleChange}
-            required={true}
-          />
+        <Grid columns={3} container>
+          <Grid.Column>
+          </Grid.Column>
+          <Grid.Column>
+            <Header as='h2' textAlign='center'>
+              <Icon.Group size='large'>
+                <Icon name='paint brush' />
+              </Icon.Group>
+              ACUAS
+            </Header>
 
-          <CustomField
-            name='userName'
-            label='User name:'
-            control={Input}
-            placeholder='Enter user name'
-            validators={[ValidatorHelper.notEmptyText(), ValidatorHelper.maxLength(35)]}
-            onChange={this.handleChange}
-            required={true}
-          />
+            <Form loading={loading} onSubmit={this.handleSubmit} error>
+              <CustomField
+                name='name'
+                label='Full name:'
+                control={Input}
+                placeholder='Enter your full name'
+                validators={[ValidatorHelper.notEmptyText(), ValidatorHelper.maxLength(35)]}
+                onChange={this.handleChange}
+                required={true}
+              />
 
-          <SemanticDatepicker label="Birth date"
-            onDateChange={this.handleChangeDate}
-            required
-          />
+              <CustomField
+                name='userName'
+                label='User name:'
+                control={Input}
+                placeholder='Enter user name'
+                validators={[ValidatorHelper.notEmptyText(), ValidatorHelper.maxLength(35)]}
+                onChange={this.handleChange}
+                required={true}
+              />
 
-          <CustomField
-            name='country'
-            label='Select your contry:'
-            control={Select}
-            placeholder=''
-            validators={[ValidatorHelper.notEmptyText()]}
-            onChange={this.handleChange}
-            required={true}
-            options={countryOptions}
-          />
+              <DateInput
+                clearable
+                name='birthDate'
+                value={this.state.birthDate}
+                onChange={this.handleChangeDate}
+                maxDate={new Date()}
+                popupPosition='bottom right'
+                closable
+                label='Birth date:'
+                placeholder="DD-MM-YYYY"
+              />
 
-          <CustomField
-            name='phoneNumber'
-            label='Phone number:'
-            control={Input}
-            placeholder='Enter phone number'
-            validators={[ValidatorHelper.matchPhoneNumber()]}
-            onChange={this.handleChange}
-            required={false}
-          />
+              <CustomField
+                name='country'
+                label='Select your contry:'
+                control={Select}
+                placeholder=''
+                validators={[ValidatorHelper.notEmptyText()]}
+                onChange={this.handleChange}
+                required={true}
+                options={countryOptions}
+              />
 
-          <CustomField
-            name='email'
-            label='Email:'
-            control={Input}
-            placeholder='e.g. joe@schmoe.com'
-            validators={[ValidatorHelper.notEmptyText(), ValidatorHelper.matchEmail()]}
-            onChange={this.handleChange}
-            required={true}
-          />
+              <CustomField
+                name='phoneNumber'
+                label='Phone number:'
+                control={Input}
+                placeholder='Enter phone number'
+                validators={[ValidatorHelper.matchPhoneNumber()]}
+                onChange={this.handleChange}
+                required={false}
+              />
 
-          <CustomField
-            name='password'
-            label='Password:'
-            type='password'
-            placeholder='Enter password'
-            validators={[ValidatorHelper.notEmptyText(), ValidatorHelper.maxLength(15), ValidatorHelper.minLength(8)]}
-            onChange={this.handleChange}
-            required={true}
-          />
+              <CustomField
+                name='email'
+                label='Email:'
+                control={Input}
+                placeholder='e.g. joe@schmoe.com'
+                validators={[ValidatorHelper.notEmptyText(), ValidatorHelper.matchEmail()]}
+                onChange={this.handleChange}
+                required={true}
+              />
 
-          <CustomField
-            name='description'
-            label='Description:'
-            control={TextArea}
-            placeholder='Write a litlte description about you'
-            validators={[ValidatorHelper.maxLength(300)]}
-            onChange={this.handleChange}
-            required={false}
-          />
+              <CustomField
+                name='password'
+                label='Password:'
+                type='password'
+                placeholder='Enter password'
+                validators={[ValidatorHelper.notEmptyText(), ValidatorHelper.maxLength(15), ValidatorHelper.minLength(8)]}
+                onChange={this.handleChange}
+                required={true}
+              />
 
-          <Grid>
-            <Grid.Row columns={2}>
-              <Grid.Column>
-                <Form.Input control={Button}>Submit</Form.Input>
-              </Grid.Column>
-              <Grid.Column>
-                <Link to="/login">Cancel</Link>
-              </Grid.Column>
-            </Grid.Row>
-          </Grid>
+              <CustomField
+                name='description'
+                label='Description:'
+                control={TextArea}
+                placeholder='Write a litlte description about you'
+                validators={[ValidatorHelper.maxLength(300)]}
+                onChange={this.handleChange}
+                required={false}
+              />
 
-        </Form>
-        {errorMessage}
+              <Grid>
+                <Grid.Row columns={2}>
+                  <Grid.Column>
+                    {/* <Form.Input control={Button} disabled={!isSubmitEnabled}>Submit</Form.Input> */}
+                    <Button control={Button} primary disabled={!isSubmitEnabled}>Submit</Button>
+                  </Grid.Column>
+                  <Grid.Column>
+                    <Link to="/login">Cancel</Link>
+                  </Grid.Column>
+                </Grid.Row>
+              </Grid>
+
+            </Form>
+            {errorMessage}
+
+          </Grid.Column>
+          <Grid.Column>
+          </Grid.Column>
+        </Grid>
+
       </div>
     );
   }

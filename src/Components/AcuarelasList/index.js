@@ -48,7 +48,13 @@ export default function AcuarelasList({acuarelas, loading, error, logoutUser, cl
   const acuarelasList = (
     <Grid doubling columns={4}>
       {acuarelas.map((acuarela, index) => {
-        return <Acuarela key={index} name={acuarela.name} author={acuarela.author} pathImage={acuarela.smallImage} rating={acuarela.rating}/>;
+        return <Acuarela
+          key={index}
+          name={acuarela.name}
+          author={acuarela.author}
+          rating={acuarela.rating}
+          pathImage={(acuarela.images && acuarela.images.length)? acuarela.images[0].url : 'https://react.semantic-ui.com/images/wireframe/image.png'}
+        />;
       })}
     </Grid>
   )

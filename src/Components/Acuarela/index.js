@@ -36,7 +36,7 @@ export default class Picture extends React.Component {
   render() {
     return (
       <Grid.Column>
-        <Image src='https://react.semantic-ui.com/images/wireframe/image.png' /*src={this.props.pathImage}*/ size='medium' />
+        <Image src={this.props.pathImage} size='medium' />
         <Header size='medium' className="picture-name">{this.props.name}</Header>
         <div className="picture-author">{this.props.author}</div>
         <Grid.Row>
