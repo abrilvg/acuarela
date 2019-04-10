@@ -1,6 +1,5 @@
-import React from "react";
 import { Container, Image, Divider } from 'semantic-ui-react';
-
+import React from 'react';
 
 const HistoryComponent = () => {
   return (

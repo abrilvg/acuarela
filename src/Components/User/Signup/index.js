@@ -1,15 +1,25 @@
-import React from "react";
-import { Redirect, Link } from "react-router-dom";
-import { Message, Icon } from 'semantic-ui-react';
+import {
+  Button,
+  Form,
+  Input,
+  Select,
+  TextArea,
+  Grid,
+  Header,
+  Message,
+  Icon
+} from 'semantic-ui-react';
 import { connect } from 'react-redux';
-import { Button, Form, Input, Select, TextArea, Grid, Header} from 'semantic-ui-react';
 import { DateInput } from 'semantic-ui-calendar-react';
+import React from 'react';
+import { Redirect, Link } from 'react-router-dom';
 
-import CustomField from "../../../Components/Common/CustomField";
-import { createUser } from "../../../Actions/userActions";
-import ValidatorHelper from "../../../Components/Common/Validator";
 
-import "./Signup.css";
+import CustomField from '../../../Components/Common/CustomField';
+import { createUser } from '../../../Actions/userActions';
+import ValidatorHelper from '../../../Components/Common/Validator';
+
+import './Signup.css';
 
 //where to save this?
 const countryOptions = [
@@ -28,7 +38,7 @@ class Signup extends React.Component {
   state = {
     name: '',
     userName: '',
-    birthDate: null,
+    birthDate: '',
     country: countryOptions[0].value,
     phoneNumber: '',
     email: '',
@@ -197,10 +207,10 @@ class Signup extends React.Component {
                 <Grid.Row columns={2}>
                   <Grid.Column>
                     {/* <Form.Input control={Button} disabled={!isSubmitEnabled}>Submit</Form.Input> */}
-                    <Button control={Button} primary disabled={!isSubmitEnabled}>Submit</Button>
+                    <Button primary disabled={!isSubmitEnabled}>Submit</Button>
                   </Grid.Column>
                   <Grid.Column>
-                    <Link to="/login">Cancel</Link>
+                    <Link to='/login'>Cancel</Link>
                   </Grid.Column>
                 </Grid.Row>
               </Grid>

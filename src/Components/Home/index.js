@@ -1,35 +1,38 @@
-import React from "react";
-import { Grid, Header, Button } from 'semantic-ui-react';
-import "./Home.css";
 import { connect } from 'react-redux';
-import AcuarelasList from "../../Components/AcuarelasList";
-import { getAllAcuarelas, cleanAcuarelas } from "../../Actions/acuarelaActions";
-import { logoutUser } from "../../Actions/userActions";
-import { withRouter } from "react-router-dom";
+import React from 'react';
+import { Grid, Header, Button } from 'semantic-ui-react';
+import { withRouter } from 'react-router-dom';
+
+import AcuarelasList from '../Acuarelas/AcuarelasList';
+import { getAllAcuarelas, clearAcuarelasError } from '../../Actions/acuarelaActions';
+import { logoutUser } from '../../Actions/userActions';
+
+import './Home.css';
 
 class Home extends React.Component {
 
   componentWillMount = () => {
+    //TODO other place?
     this.props.getAllAcuarelas();
   }
 
-  addAcuarela = () => {
+  handleAddAcuarela = () => {
     this.props.history.push('/acuarela-form');
   }
 
   render() {
     return (
-      <div className="home">
+      <div>
         <Grid.Row>
           <Header as='h2'>Francisco Tomé</Header>&nbsp;<span>127 results</span>
-          <Button onClick={this.addAcuarela}>Add acuarela</Button>
+          <Button onClick={ this.handleAddAcuarela }>Add acuarela</Button>
         </Grid.Row>
         <AcuarelasList
           acuarelas={this.props.acuarelas}
           loading={this.props.loading}
           error={this.props.error}
           logoutUser={this.props.logoutUser}
-          cleanAcuarelas={this.props.cleanAcuarelas}
+          clearAcuarelasError={this.props.clearAcuarelasError}
         />
       </div>
     );
@@ -44,4 +47,4 @@ function mapStateToProps(state) {
   }
 }
 
-export default connect(mapStateToProps, {getAllAcuarelas, logoutUser, cleanAcuarelas})(withRouter(Home));
+export default connect(mapStateToProps, {getAllAcuarelas, logoutUser, clearAcuarelasError})(withRouter(Home));

@@ -1,8 +1,12 @@
-import React from "react";
 import { Message, Form} from 'semantic-ui-react';
 import PropTypes from 'prop-types';
-import ValidatorHelper from "../Validator";
+import React from 'react';
 
+import ValidatorHelper from '../Validator';
+
+/**
+ * Based on Form.Input supported field in Semantic ui ^0.83.0
+ */
 export default class CustomField extends React.Component {
 
   static propTypes = {

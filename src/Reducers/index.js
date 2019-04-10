@@ -1,12 +1,10 @@
 import { combineReducers } from 'redux';
 import AcuarelaReducer from './acuarelaReducer';
 import UserReducer from './userReducer';
-import { reducer as formReducer } from 'redux-form';
 
 const reducers = {
   acuarelaStore: AcuarelaReducer,
-  userStore: UserReducer,
-  form: formReducer
+  userStore: UserReducer
 }
 
 const rootReducer = combineReducers(reducers);

@@ -1,28 +1,27 @@
 import Immutable from 'seamless-immutable';
-import UserSession from "../UserSession";
+import UserSession from '../Actions/UserSession';
 
 const initalState = Immutable({
   acuarela: {},
   acuarelas: [],
-  error: {},
+  error: false,
   loading: false
 });
 
 export default (state = initalState, action = {}) => {
   switch (action.type) {
     case 'FETCH_ACUARELAS_FULFILLED': {
+      //TODO every request should we update the token? only in success?
       UserSession.setToken(action.payload.data.token); //should we trust token will always arrive?
       return state.merge({
         acuarelas: action.payload.data.data,
-        loading: false,
-        error: {}
+        loading: false
       });
     }
 
     case 'FETCH_ACUARELAS_PENDING': {
       return state.merge({
-        loading: true,
-        error: {}
+        loading: true
       });
     }
 
@@ -30,7 +29,12 @@ export default (state = initalState, action = {}) => {
       let payload = action.payload;
       return state.merge({
         loading: false,
-        error: payload.response ? payload.response : { message: payload.message }
+        error: payload.response ? {
+          message: payload.response.data.message,
+          status: payload.response.status
+        } : {
+          message: payload.message
+        }
       });
     }
 
@@ -45,7 +49,6 @@ export default (state = initalState, action = {}) => {
       return state.merge({
         acuarela: action.payload.data.data,
         acuarelas: [...state.acuarelas, action.payload.data.data],
-        error: {},
         loading: false
       });
     }

@@ -1,9 +1,10 @@
 
-import React from 'react';
+import { connect } from 'react-redux';
 import * as firebase from 'firebase';
 import { Form} from 'semantic-ui-react';
 import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
+import React from 'react';
+
 import IDGenerator from '../IdGenerator';
 import {
   errorLoadingPictures,
@@ -11,6 +12,7 @@ import {
   startLoadingPictures
 } from '../../../Actions/acuarelaActions';
 
+//TODO how to handle this?
 var config = {
   apiKey: "AIzaSyBD4K23nKLiuNpiBVjiy4oTVABNL3KHiAA",
   authDomain: "acuarela-30846.firebaseapp.com",
@@ -32,7 +34,7 @@ class Uploader extends React.Component {
     super();
     this.state = {
       files: [],
-      allAmount: 0
+      allAmount: 0 //amount of files that will be loaded
     }
   }
 
@@ -54,9 +56,9 @@ class Uploader extends React.Component {
         // let percentage = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
       }, (error) => {
         this.props.errorLoadingPictures(`Error when uploading ${error}`);
-
       }, () => {
         task.snapshot.ref.getDownloadURL().then((downloadURL) => {
+          //here we are duplicanting save downloadURL in parent and current state
           this.setState({
             files: [...this.state.files, downloadURL ]
           }, () => {
@@ -96,7 +98,7 @@ class Uploader extends React.Component {
     )
   }
 }
-function mapStateToProps(state) {
+function mapStateToProps() {
   return {}
 }
 

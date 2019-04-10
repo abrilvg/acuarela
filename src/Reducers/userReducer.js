@@ -1,5 +1,5 @@
 import Immutable from 'seamless-immutable';
-import UserSession from "../UserSession";
+import UserSession from '../Actions/UserSession';
 
 let userData = UserSession.getUser();
 
@@ -13,7 +13,7 @@ const initalState = Immutable({
     }
   },
   loading: false,
-  error: {},
+  error: false,
 });
 
 export default (state = initalState, action = {}) => {
@@ -25,22 +25,26 @@ export default (state = initalState, action = {}) => {
           data: action.payload.data.data,
           isLoggedIn: true
         },
-        loading: false,
-        error: {}
+        loading: false
       });
     }
 
     case 'CREATE_USER_PENDING': {
       return state.merge({
-        loading: true,
-        error: {}
+        loading: true
       });
     }
 
     case 'CREATE_USER_REJECTED': {
+      let payload = action.payload;
       return state.merge({
         loading: false,
-        error: action.payload.response ? action.payload.response : { message: action.payload.message }
+        error: payload.response ? {
+          message: payload.response.data.message,
+          status: payload.response.status
+        } : {
+          message: payload.message
+        }
       });
     }
 
@@ -51,22 +55,27 @@ export default (state = initalState, action = {}) => {
           data: action.payload.data.data,
           isLoggedIn: true
         },
-        loading: false,
-        error: {}
+        loading: false
       });
     }
 
     case 'USER_LOGIN_PENDING': {
       return state.merge({
-        loading: true,
-        error: {}
+        loading: true
       });
     }
 
     case 'USER_LOGIN_REJECTED': {
+      //TODO 401 and 500 errors come in different way! :/
+      let payload = action.payload;
       return state.merge({
         loading: false,
-        error: action.payload.response ? action.payload.response : { message: action.payload.message }
+        error: payload.response ? {
+          message: payload.response.data.message,
+          status: payload.response.status
+        } : {
+          message: payload.message
+        }
       });
     }
 
@@ -78,7 +87,7 @@ export default (state = initalState, action = {}) => {
           isLoggedIn: false
         },
         loading: false,
-        error: {}
+        error: false
       });
     }
 

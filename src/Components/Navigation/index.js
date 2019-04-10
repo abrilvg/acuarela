@@ -1,8 +1,10 @@
-import React from 'react';
-import { withRouter } from "react-router-dom";
-import "./Navigation.css";
 import { Input, Menu } from 'semantic-ui-react';
-import Profile from '../../Components/Profile';
+import React from 'react';
+import { withRouter } from 'react-router-dom';
+
+import Profile from '../User/Profile';
+
+import './Navigation.css';
 
 class Navigation extends React.Component {
 
@@ -19,7 +21,6 @@ class Navigation extends React.Component {
 
   render() {
     const { activeItem } = this.state;
-    //verticalAlign="middle" centered
 
     return (
       <div>
@@ -51,11 +52,6 @@ class Navigation extends React.Component {
             <Menu.Item>
               <Profile />
             </Menu.Item>
-            {/* <Menu.Item
-              name='logout'
-              active={activeItem === 'logout'}
-              onClick={this.handleItemClick}
-            /> */}
           </Menu.Menu>
         </Menu>
       </div>

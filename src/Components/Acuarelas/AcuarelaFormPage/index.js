@@ -1,25 +1,18 @@
-import React from "react";
-//import "./PictureDetailForm.css";
-import PropTypes from 'prop-types';
-import AcuarelaForm from "../../Components/AcuarelaForm";
 import { connect } from 'react-redux';
-import { saveAcuarela } from "../../Actions/acuarelaActions";
-import { withRouter } from "react-router-dom";
+import React from 'react';
+import { withRouter } from 'react-router-dom';
 
+import AcuarelaForm from '../AcuarelaForm';
+import { saveAcuarela } from '../../../Actions/acuarelaActions';
+
+//import './AcuarelaFormPage.css';
+
+//TODO also to update acuarela
 class AcuarelaFormPage extends React.Component {
-
-  static propTypes = {
-    open: PropTypes.bool.isRequired
-  };
-  static defaultProps = {
-    open: false
-  };
 
   constructor(props) {
     super(props);
-    this.state = {
-      name: 'pepe'
-    };
+    this.state = {};
   }
 
   submit = (acuarela) => {
@@ -43,22 +36,19 @@ class AcuarelaFormPage extends React.Component {
 
   render() {
     return (
-      <div>
-        {this.state.name}
-        <AcuarelaForm
-          contact={this.props.acuarela}
-          loading={this.props.loading}
-          onSubmit={this.submit}
-          error={this.props.error}
-        />
-      </div>
+      <AcuarelaForm
+        // acuarela={this.props.acuarela}
+        loading={this.props.loading}
+        onSubmit={this.submit}
+        error={this.props.error}
+      />
     );
   }
 }
 
 function mapStateToProps(state) {
   return {
-    acuarela: state.acuarelaStore.acuarela,
+    // acuarela: state.acuarelaStore.acuarela,
     error: state.acuarelaStore.error,
     loading: state.acuarelaStore.loading
   }

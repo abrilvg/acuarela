@@ -1,12 +1,11 @@
-import React, { Component } from 'react';
-import { reduxForm } from 'redux-form';
-import CustomField from "../Common/CustomField";
-import ValidatorHelper from "../Common/Validator";
-import { Button, Form, Input, Select, Grid} from 'semantic-ui-react';
 import { DateInput } from 'semantic-ui-calendar-react';
-import 'react-semantic-ui-datepickers/dist/react-semantic-ui-datepickers.css';
-import Uploader from "../Common/Uploader";
+import { Button, Form, Input, Select, Grid} from 'semantic-ui-react';
 import PropTypes from 'prop-types';
+import React, { Component } from 'react';
+
+import CustomField from '../../Common/CustomField';
+import ValidatorHelper from '../../Common/Validator';
+import Uploader from '../../Common/Uploader';
 
 const countryOptions = [
   { key: 'ar', value: 'ar', flag: 'ar', text: 'Argentina' },
@@ -29,8 +28,9 @@ const techniqueOptions = [
 class AcuarelaForm extends Component {
 
   static propTypes = {
+    acuarela: PropTypes.object,
     loading: PropTypes.bool.isRequired,
-    error: PropTypes.object
+    error: PropTypes.any
   };
 
   componentWillReceiveProps = (nextProps) => { // Load Acuarela Asynchronously
@@ -70,7 +70,7 @@ class AcuarelaForm extends Component {
 
   handleSubmit = (e) => {
     this.setState({
-      //how to improve this?
+      //how to improve this? it show a warning in console :/
       createdDate: new Date(this.state.createdDate)
     }, () => {
       this.props.onSubmit(this.state);
@@ -89,12 +89,12 @@ class AcuarelaForm extends Component {
     //TODO is correct put here this validations?
     let isSubmitEnabled = this.isSubmitEnabled();
 
-    const { pristine, submitting, loading, acuarela, error } = this.props;
+    const { loading, error } = this.props;
 
     return (
       <Grid centered columns={2}>
         <Grid.Column>
-          <h1 style={{marginTop:"1em"}}>{'Add New Acuarela'}</h1>
+          <h1>{'Add New Acuarela'}</h1>
           {/* <h1 style={{marginTop:"1em"}}>{acuarela._id ? 'Edit Contact' : 'Add New Contact'}</h1> */}
           <Form onSubmit={this.handleSubmit} loading={loading} error>
             <CustomField
@@ -157,4 +157,4 @@ class AcuarelaForm extends Component {
   }
 }
 
-export default reduxForm({form: 'acuarela'})(AcuarelaForm);
+export default AcuarelaForm;

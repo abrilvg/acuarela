@@ -20,7 +20,7 @@ export const saveAcuarela = (acuarelaData) => {
   }
 }
 
-export const cleanAcuarelas = () => {
+export const clearAcuarelasError = () => {
   return dispatch => {
     dispatch({
       type: 'CLEAN_ACUARELAS'

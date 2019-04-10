@@ -1,5 +1,5 @@
 import axios from 'axios';
-import UserSession from "../UserSession";
+import UserSession from '../Actions/UserSession';
 
 let baseUrl = 'http://localhost:1234';
 

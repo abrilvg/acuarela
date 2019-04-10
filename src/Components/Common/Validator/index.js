@@ -1,3 +1,6 @@
+/**
+ * Validate if values follow pattern
+ */
 const ValidatorHelper = {
     notEmptyValue: () => {
         return {

@@ -1,14 +1,13 @@
-import React from "react";
-import { Redirect, Link } from "react-router-dom";
 import { Button, Form, Input, Grid, Message, Icon, Header } from 'semantic-ui-react';
 import { connect } from 'react-redux';
+import React from 'react';
+import { Redirect, Link } from 'react-router-dom';
 
-import CustomField from "../../../Components/Common/CustomField";
-import { loginUser } from "../../../Actions/userActions";
-import ValidatorHelper from "../../../Components/Common/Validator";
+import CustomField from '../../../Components/Common/CustomField';
+import { loginUser } from '../../../Actions/userActions';
+import ValidatorHelper from '../../../Components/Common/Validator';
 
-import "./Login.css";
-import 'react-semantic-ui-datepickers/dist/react-semantic-ui-datepickers.css';
+import './Login.css';
 
 class Login extends React.Component {
 
@@ -39,22 +38,18 @@ class Login extends React.Component {
   render() {
     let { loading, user, error } = this.props;
 
-    let errorMessage;
-
     //TODO is correct put here this validations?
     let isSubmitEnabled = this.isSubmitEnabled();
 
-    if (error.data || error.message) {
-      errorMessage = (
-        <Message icon negative>
-          <Icon name='dont' />
-          <Message.Content>
-            <Message.Header>{error.data ? error.data.message : error.message}</Message.Header>
-            Please try again
-         </Message.Content>
-        </Message>
-      );
-    }
+    const errorMessage = (
+      <Message icon negative>
+        <Icon name='dont' />
+        <Message.Content>
+          <Message.Header>{error.message}</Message.Header>
+          Please try again
+        </Message.Content>
+      </Message>
+    );
 
     if (user.isLoggedIn) return <Redirect to='/' />;
 
@@ -94,12 +89,12 @@ class Login extends React.Component {
               />
 
               <div>
-                <Button control={Button} primary disabled={!isSubmitEnabled}>Login</Button>
-                <Link to="/signup">Sign up</Link>
+                <Button primary disabled={!isSubmitEnabled}>Login</Button>
+                <Link to='/signup'>Sign up</Link>
               </div>
 
             </Form>
-            {errorMessage}
+            {error && errorMessage}
 
           </Grid.Column>
           <Grid.Column>
