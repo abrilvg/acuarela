@@ -15,7 +15,7 @@ class AcuarelaFormPage extends React.Component {
     this.state = {};
   }
 
-  submit = (acuarela) => {
+  handleSubmit = (acuarela) => {
     this.props.saveAcuarela(acuarela);
     this.props.history.push('/');
 
@@ -39,7 +39,7 @@ class AcuarelaFormPage extends React.Component {
       <AcuarelaForm
         // acuarela={this.props.acuarela}
         loading={this.props.loading}
-        onSubmit={this.submit}
+        onSubmit={this.handleSubmit}
         error={this.props.error}
       />
     );

@@ -4,7 +4,14 @@ import { Link } from 'react-router-dom';
 
 import Acuarela from '../Acuarela';
 
-export default function AcuarelasList({acuarelas, loading, error, logoutUser, clearAcuarelasError}){
+export default function AcuarelasList({
+  acuarelas,
+  loading,
+  error,
+  logoutUser,
+  clearAcuarelasError,
+  handleViewAcuarela
+}){
 
   const loadingMessage = (
     <Message icon info>
@@ -50,6 +57,7 @@ export default function AcuarelasList({acuarelas, loading, error, logoutUser, cl
         acuarelas.map((acuarela, index) => {
           return <Acuarela
             key={index}
+            id={acuarela._id}
             name={acuarela.name}
             author={acuarela.author}
             rating={acuarela.rating}

@@ -59,9 +59,9 @@ class Signup extends React.Component {
   };
 
   handleSubmit = () => {
-    this.setState({
-      birthDate: new Date(this.state.birthDate)
-    }, () => {
+    this.setState( prevState => ({
+      birthDate: new Date(prevState.birthDate)
+    }), () => {
       this.props.createUser(this.state);
     });
   }

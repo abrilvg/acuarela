@@ -66,7 +66,6 @@ export default (state = initalState, action = {}) => {
     }
 
     case 'USER_LOGIN_REJECTED': {
-      //TODO 401 and 500 errors come in different way! :/
       let payload = action.payload;
       return state.merge({
         loading: false,

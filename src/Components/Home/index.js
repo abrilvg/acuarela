@@ -1,6 +1,6 @@
 import { connect } from 'react-redux';
 import React from 'react';
-import { Grid, Header, Button } from 'semantic-ui-react';
+import { Header, Button } from 'semantic-ui-react';
 import { withRouter } from 'react-router-dom';
 
 import AcuarelasList from '../Acuarelas/AcuarelasList';
@@ -23,10 +23,8 @@ class Home extends React.Component {
   render() {
     return (
       <div>
-        <Grid.Row>
-          <Header as='h2'>Francisco Tomé</Header>&nbsp;<span>127 results</span>
-          <Button onClick={ this.handleAddAcuarela }>Add acuarela</Button>
-        </Grid.Row>
+        <Header as='h2'>Francisco Tomé</Header>&nbsp;<span>127 results</span>
+        <Button onClick={ this.handleAddAcuarela }>Add acuarela</Button>
         <AcuarelasList
           acuarelas={this.props.acuarelas}
           loading={this.props.loading}

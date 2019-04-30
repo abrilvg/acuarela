@@ -2,6 +2,7 @@ import { connect } from 'react-redux';
 import React, { Component } from 'react';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
 
+import AcuarelaDetail from './Components/Acuarelas/AcuarelaDetail';
 import About from './Components/About';
 import AcuarelaFormPage from './Components/Acuarelas/AcuarelaFormPage';
 import ErrorComponent from './Components/Error';
@@ -31,6 +32,7 @@ class App extends Component {
             <PrivateRoute authed={this.props.user.isLoggedIn} path='/' component={Home} exact />
             <PrivateRoute authed={this.props.user.isLoggedIn} path='/history' component={HistoryComponent} />
             <PrivateRoute authed={this.props.user.isLoggedIn} path='/about' component={About} />
+            <PrivateRoute authed={this.props.user.isLoggedIn} path='/acuarela-detail/:id' component={AcuarelaDetail} />
             <PrivateRoute authed={this.props.user.isLoggedIn} path='/contact' component={Contact} />
             <PrivateRoute authed={this.props.user.isLoggedIn} path='/acuarela-form' component={AcuarelaFormPage} />
             <Route path='/login' component={Login} />

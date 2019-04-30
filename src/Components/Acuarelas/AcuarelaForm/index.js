@@ -63,16 +63,16 @@ class AcuarelaForm extends Component {
   }
 
   handleUploadImages = (newImage) => {
-    this.setState({
-      images: [...this.state.images, newImage ]
-    })
+    this.setState(prevState => ({
+      images: [...prevState.images, newImage ]
+    }))
   }
 
   handleSubmit = (e) => {
-    this.setState({
-      //how to improve this? it show a warning in console :/
-      createdDate: new Date(this.state.createdDate)
-    }, () => {
+    this.setState( prevState => ({
+      //how to improve this? it shows a warning in console :/
+      createdDate: new Date(prevState.createdDate)
+    }), () => {
       this.props.onSubmit(this.state);
     });
   }

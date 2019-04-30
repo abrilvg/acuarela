@@ -1,17 +1,31 @@
 import { Grid, Image, Rating, Header } from 'semantic-ui-react';
 import React from 'react';
+import { withRouter } from 'react-router-dom';
 
 import './Acuarela.css';
 
-export default function Acuarela({name, author, pathImage, rating}){
-  return (
-    <Grid.Column>
-        <Image src={pathImage} size='medium' />
-        <Header size='medium' className="picture-name">{name}</Header>
-        <div className="picture-author">{author}</div>
+class Acuarela extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {};
+  }
+
+  handleViewDetail = () => {
+    this.props.history.push(`/acuarela-detail/${this.props.id}`);
+  }
+
+  render() {
+    return (
+      <Grid.Column onClick={this.handleViewDetail}>
+        <Image src={this.props.pathImage} size='medium' />
+        <Header size='medium' className="picture-name">{this.props.name}</Header>
+        <div className="picture-author">{this.props.author}</div>
         <Grid.Row>
-          <Rating icon='star' defaultRating={3} maxRating={4} />&nbsp;({rating})
+          <Rating icon='star' defaultRating={3} maxRating={4} />&nbsp;({this.props.rating})
         </Grid.Row>
       </Grid.Column>
-  );
+    );
+  }
 }
+
+export default withRouter(Acuarela);

@@ -41,9 +41,9 @@ class Uploader extends React.Component {
   handleChange = (event) => {
     const files = event.target.files;
 
-    this.setState({
-      allAmount: this.state.allAmount + files.length
-    });
+    this.setState( prevState => ({
+      allAmount: prevState.allAmount + files.length
+    }));
     this.props.startLoadingPictures();
 
     Array.from(files).forEach(file => {
@@ -59,9 +59,9 @@ class Uploader extends React.Component {
       }, () => {
         task.snapshot.ref.getDownloadURL().then((downloadURL) => {
           //here we are duplicanting save downloadURL in parent and current state
-          this.setState({
-            files: [...this.state.files, downloadURL ]
-          }, () => {
+          this.setState(prevState => ({
+            files: [...prevState.files, downloadURL ]
+          }), () => {
             if (this.state.files.length === this.state.allAmount) {
               this.props.successLoadingPictures();
             }

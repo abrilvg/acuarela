@@ -11,6 +11,15 @@ export const getAllAcuarelas = () => {
   }
 }
 
+export const getAcuarelaDetails = (acuarelaId) => {
+  return dispatch => {
+    dispatch({
+      type: 'FETCH_ACUARELA_DETAILS',
+      payload: GET(`${url}/${acuarelaId}`)
+    });
+  }
+}
+
 export const saveAcuarela = (acuarelaData) => {
   return dispatch => {
     dispatch({

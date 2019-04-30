@@ -84,6 +84,32 @@ export default (state = initalState, action = {}) => {
       });
     }
 
+    case 'FETCH_ACUARELA_DETAILS_FULFILLED': {
+      return state.merge({
+        acuarela: action.payload.data.data,
+        loading: false
+      });
+    }
+
+    case 'FETCH_ACUARELA_DETAILS_PENDING': {
+      return state.merge({
+        loading: true
+      });
+    }
+
+    case 'FETCH_ACUARELA_DETAILS_REJECTED': {
+      let payload = action.payload;
+      return state.merge({
+        loading: false,
+        error: payload.response ? {
+          message: payload.response.data.message,
+          status: payload.response.status
+        } : {
+          message: payload.message
+        }
+      });
+    }
+
     default:
       return state;
   }
