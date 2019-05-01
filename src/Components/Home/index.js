@@ -1,7 +1,6 @@
 import { connect } from 'react-redux';
 import React from 'react';
-import { Header, Button } from 'semantic-ui-react';
-import { withRouter } from 'react-router-dom';
+import { Container } from 'semantic-ui-react';
 
 import AcuarelasList from '../Acuarelas/AcuarelasList';
 import { getAllAcuarelas, clearAcuarelasError } from '../../Actions/acuarelaActions';
@@ -16,15 +15,10 @@ class Home extends React.Component {
     this.props.getAllAcuarelas();
   }
 
-  handleAddAcuarela = () => {
-    this.props.history.push('/acuarela-form');
-  }
-
   render() {
     return (
-      <div>
-        <Header as='h2'>Francisco Tomé</Header>&nbsp;<span>127 results</span>
-        <Button onClick={ this.handleAddAcuarela }>Add acuarela</Button>
+      <Container style={{paddingTop:'20px'}}>
+        {/* <Header as='h2'>Francisco Tomé</Header>&nbsp;<span>127 results</span> */}
         <AcuarelasList
           acuarelas={this.props.acuarelas}
           loading={this.props.loading}
@@ -32,7 +26,7 @@ class Home extends React.Component {
           logoutUser={this.props.logoutUser}
           clearAcuarelasError={this.props.clearAcuarelasError}
         />
-      </div>
+      </Container>
     );
   }
 }
@@ -45,4 +39,4 @@ function mapStateToProps(state) {
   }
 }
 
-export default connect(mapStateToProps, {getAllAcuarelas, logoutUser, clearAcuarelasError})(withRouter(Home));
+export default connect(mapStateToProps, {getAllAcuarelas, logoutUser, clearAcuarelasError})(Home);

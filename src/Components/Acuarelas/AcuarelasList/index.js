@@ -9,8 +9,7 @@ export default function AcuarelasList({
   loading,
   error,
   logoutUser,
-  clearAcuarelasError,
-  handleViewAcuarela
+  clearAcuarelasError
 }){
 
   const loadingMessage = (
@@ -52,7 +51,7 @@ export default function AcuarelasList({
   );
 
   const acuarelasList = (
-    <Grid doubling columns={4}>
+    <Grid doubling columns={6}>
       {
         acuarelas.map((acuarela, index) => {
           return <Acuarela

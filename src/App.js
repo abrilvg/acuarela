@@ -30,7 +30,7 @@ class App extends Component {
           {this.props.user.isLoggedIn && <Navigation />}
           <Switch>
             <PrivateRoute authed={this.props.user.isLoggedIn} path='/' component={Home} exact />
-            <PrivateRoute authed={this.props.user.isLoggedIn} path='/history' component={HistoryComponent} />
+            {/* <PrivateRoute authed={this.props.user.isLoggedIn} path='/history' component={HistoryComponent} /> */}
             <PrivateRoute authed={this.props.user.isLoggedIn} path='/about' component={About} />
             <PrivateRoute authed={this.props.user.isLoggedIn} path='/acuarela-detail/:id' component={AcuarelaDetail} />
             <PrivateRoute authed={this.props.user.isLoggedIn} path='/contact' component={Contact} />

@@ -45,7 +45,8 @@ class Profile extends React.Component {
         disabled: true,
       },
       { key: 'settings', text: 'Settings', value: 'settings' },
-      { key: 'sign-out', text: 'Sign Out', value: 'logout' },
+      { key: 'myAcuarelas', text: 'My acuarelas', value: 'myAcuarelas' },
+      { key: 'logout', text: 'Sign Out', value: 'logout' },
     ];
 
     return (

@@ -94,7 +94,7 @@ class AcuarelaForm extends Component {
     return (
       <Grid centered columns={2}>
         <Grid.Column>
-          <h1>{'Add New Acuarela'}</h1>
+          <h2>{'New Acuarela'}</h2>
           {/* <h1 style={{marginTop:"1em"}}>{acuarela._id ? 'Edit Contact' : 'Add New Contact'}</h1> */}
           <Form onSubmit={this.handleSubmit} loading={loading} error>
             <CustomField

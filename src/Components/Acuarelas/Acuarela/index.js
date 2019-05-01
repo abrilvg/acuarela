@@ -20,9 +20,9 @@ class Acuarela extends React.Component {
         <Image src={this.props.pathImage} size='medium' />
         <Header size='medium' className="picture-name">{this.props.name}</Header>
         <div className="picture-author">{this.props.author}</div>
-        <Grid.Row>
+        {/* <Grid.Row>
           <Rating icon='star' defaultRating={3} maxRating={4} />&nbsp;({this.props.rating})
-        </Grid.Row>
+        </Grid.Row> */}
       </Grid.Column>
     );
   }

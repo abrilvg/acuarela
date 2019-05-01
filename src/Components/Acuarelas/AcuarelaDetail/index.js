@@ -35,7 +35,7 @@ class AcuarelaDetail extends React.Component {
         </Grid.Column>
         <Grid.Column>
           <Header size='medium'>{name}</Header>
-          <Rating icon='star' defaultRating={rating? rating: 0} maxRating={4} />
+          {/* <Rating icon='star' defaultRating={rating? rating: 0} maxRating={4} /> */}
           <br /> {createdDate}
           <br /> {technique}
           <br /> {material}

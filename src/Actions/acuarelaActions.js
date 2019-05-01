@@ -1,4 +1,5 @@
-import { GET, POST } from "../Api";
+import { GET, POST } from '../Api';
+import UserSession from '../Actions/UserSession';
 
 const url = 'acuarelas';
 
@@ -21,6 +22,10 @@ export const getAcuarelaDetails = (acuarelaId) => {
 }
 
 export const saveAcuarela = (acuarelaData) => {
+  //TODO add author id and name before the save it, improve it
+  const userData =  UserSession.getUser();
+  acuarelaData.author = userData.userName;
+  acuarelaData.authorId = userData.id;
   return dispatch => {
     dispatch({
       type: 'SAVE_ACUARELA',

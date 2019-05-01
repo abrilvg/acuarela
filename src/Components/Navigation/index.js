@@ -1,4 +1,4 @@
-import { Input, Menu } from 'semantic-ui-react';
+import { Menu, Icon } from 'semantic-ui-react';
 import React from 'react';
 import { withRouter } from 'react-router-dom';
 
@@ -19,6 +19,10 @@ class Navigation extends React.Component {
     }
   }
 
+  handleUploadAcuarela = () => {
+    this.props.history.push('/acuarela-form');
+  }
+
   render() {
     const { activeItem } = this.state;
 
@@ -30,11 +34,11 @@ class Navigation extends React.Component {
             active={activeItem === 'home'}
             onClick={this.handleItemClick}
           />
-          <Menu.Item
+          {/* <Menu.Item
             name='history'
             active={activeItem === 'history'}
             onClick={this.handleItemClick}
-          />
+          /> */}
           <Menu.Item
             name='contact'
             active={activeItem === 'contact'}
@@ -47,7 +51,10 @@ class Navigation extends React.Component {
           />
           <Menu.Menu position='right'>
             <Menu.Item>
-              <Input icon='search' placeholder='Search...' />
+              {/*TODO <Input icon='search' placeholder='Search...' /> */}
+            </Menu.Item>
+            <Menu.Item>
+              <Icon name='upload' onClick={this.handleUploadAcuarela}/>
             </Menu.Item>
             <Menu.Item>
               <Profile />
