@@ -38,6 +38,33 @@ export default (state = initalState, action = {}) => {
       });
     }
 
+    case 'FETCH_ACUARELAS_BY_USER_FULFILLED': {
+      UserSession.setToken(action.payload.data.token);
+      return state.merge({
+        acuarelas: action.payload.data.data,
+        loading: false
+      });
+    }
+
+    case 'FETCH_ACUARELAS_BY_USER_PENDING': {
+      return state.merge({
+        loading: true
+      });
+    }
+
+    case 'FETCH_ACUARELAS_BY_USER_REJECTED': {
+      let payload = action.payload;
+      return state.merge({
+        loading: false,
+        error: payload.response ? {
+          message: payload.response.data.message,
+          status: payload.response.status
+        } : {
+          message: payload.message
+        }
+      });
+    }
+
     case 'SAVE_ACUARELA_PENDING': {
       return state.merge({
         loading: true
@@ -85,6 +112,7 @@ export default (state = initalState, action = {}) => {
     }
 
     case 'FETCH_ACUARELA_DETAILS_FULFILLED': {
+      UserSession.setToken(action.payload.data.token);
       return state.merge({
         acuarela: action.payload.data.data,
         loading: false

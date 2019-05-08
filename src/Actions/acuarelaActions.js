@@ -12,6 +12,16 @@ export const getAllAcuarelas = () => {
   }
 }
 
+export const getAcuarelasByCurrentUser = () => {
+  const authorId = UserSession.getUser().id;
+  return dispatch => {
+    dispatch({
+      type: 'FETCH_ACUARELAS_BY_USER',
+      payload: GET(`${url}/user/${authorId}`)
+    });
+  }
+}
+
 export const getAcuarelaDetails = (acuarelaId) => {
   return dispatch => {
     dispatch({

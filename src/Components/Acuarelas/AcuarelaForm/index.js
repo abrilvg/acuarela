@@ -33,7 +33,7 @@ class AcuarelaForm extends Component {
     error: PropTypes.any
   };
 
-  componentWillReceiveProps = (nextProps) => { // Load Acuarela Asynchronously
+  componentWillReceiveProps = (nextProps) => { // Load Acuarela
     /*const { acuarela } = nextProps;
     if(acuarela._id !== this.props.acuarela._id) { // Initialize form only once
       this.props.initialize(acuarela)

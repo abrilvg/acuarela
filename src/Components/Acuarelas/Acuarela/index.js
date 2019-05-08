@@ -1,4 +1,4 @@
-import { Grid, Image, Rating, Header } from 'semantic-ui-react';
+import { Grid, Image, Rating, Header, Icon } from 'semantic-ui-react';
 import React from 'react';
 import { withRouter } from 'react-router-dom';
 
@@ -19,7 +19,7 @@ class Acuarela extends React.Component {
       <Grid.Column onClick={this.handleViewDetail}>
         <Image src={this.props.pathImage} size='medium' />
         <Header size='medium' className="picture-name">{this.props.name}</Header>
-        <div className="picture-author">{this.props.author}</div>
+        <div className="picture-author">{this.props.author? `By: ${this.props.author}`: ''}</div>
         {/* <Grid.Row>
           <Rating icon='star' defaultRating={3} maxRating={4} />&nbsp;({this.props.rating})
         </Grid.Row> */}

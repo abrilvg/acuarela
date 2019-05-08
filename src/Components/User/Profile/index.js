@@ -19,6 +19,10 @@ class Profile extends React.Component {
       this.props.logoutUser();
       this.props.history.push('/login');
     }
+    //TODO use switch
+    if ( value === 'myAcuarelas') {
+      this.props.history.push('/acuarelas-user');
+    }
   }
 
   render() {

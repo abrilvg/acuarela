@@ -60,12 +60,14 @@ class Uploader extends React.Component {
         task.snapshot.ref.getDownloadURL().then((downloadURL) => {
           //here we are duplicanting save downloadURL in parent and current state
           this.setState(prevState => ({
-            files: [...prevState.files, downloadURL ]
-          }), () => {
-            if (this.state.files.length === this.state.allAmount) {
-              this.props.successLoadingPictures();
-            }
-          })
+            // files: [...prevState.files, downloadURL ] TODO enable for multiple files
+            files: [ downloadURL ]
+          }));
+          // () => { TODO enable for multiple files
+            // if (this.state.files.length === this.state.allAmount) { TODO enable for multiple files
+          this.props.successLoadingPictures();
+            //} TODO enable for multiple files
+          //}) TODO enable for multiple files
           //to save in db
           this.props.onChange({
             name: fileName,
@@ -83,7 +85,7 @@ class Uploader extends React.Component {
           label={this.props.label}
           onChange={this.handleChange}
           type='file'
-          multiple
+          //multiple TODO enable to have multiple pictures
           required
         />
         {
