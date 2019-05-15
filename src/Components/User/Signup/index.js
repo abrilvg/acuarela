@@ -14,8 +14,7 @@ import { DateInput } from 'semantic-ui-calendar-react';
 import React from 'react';
 import { Redirect, Link } from 'react-router-dom';
 
-
-import CustomField from '../../../Components/Common/CustomField';
+import CustomTextInput from '../../Common/CustomTextInput';
 import { createUser } from '../../../Actions/userActions';
 import ValidatorHelper from '../../../Components/Common/Validator';
 
@@ -66,31 +65,30 @@ class Signup extends React.Component {
     });
   }
 
-  isSubmitEnabled = () => {
-
+  get isSubmitEnabled () {
     //TODO date valitation is missing
-    return ValidatorHelper.notEmptyText().isValid(this.state.name) &&
-      ValidatorHelper.maxLength(35).isValid(this.state.name) &&
-      ValidatorHelper.notEmptyText().isValid(this.state.userName) &&
-      ValidatorHelper.maxLength(35).isValid(this.state.userName) &&
-      ValidatorHelper.notEmptyValue().isValid(this.state.birthDate) &&
-      ValidatorHelper.notEmptyText().isValid(this.state.country) &&
-      ValidatorHelper.matchPhoneNumber().isValid(this.state.phoneNumber) &&
-      ValidatorHelper.notEmptyText().isValid(this.state.email) &&
-      ValidatorHelper.matchEmail().isValid(this.state.email) &&
-      ValidatorHelper.notEmptyText().isValid(this.state.password) &&
-      ValidatorHelper.minLength(8).isValid(this.state.password) &&
-      ValidatorHelper.maxLength(15).isValid(this.state.password) &&
-      ValidatorHelper.maxLength(300).isValid(this.state.description);
+    const validators = [
+      ValidatorHelper.notEmptyText().isValid(this.state.name),
+      ValidatorHelper.maxLength(35).isValid(this.state.name),
+      ValidatorHelper.notEmptyText().isValid(this.state.userName),
+      ValidatorHelper.maxLength(35).isValid(this.state.userName),
+      ValidatorHelper.notEmptyValue().isValid(this.state.birthDate),
+      ValidatorHelper.notEmptyText().isValid(this.state.country),
+      ValidatorHelper.matchPhoneNumber().isValid(this.state.phoneNumber),
+      ValidatorHelper.notEmptyText().isValid(this.state.email),
+      ValidatorHelper.matchEmail().isValid(this.state.email),
+      ValidatorHelper.notEmptyText().isValid(this.state.password),
+      ValidatorHelper.minLength(8).isValid(this.state.password),
+      ValidatorHelper.maxLength(15).isValid(this.state.password),
+      ValidatorHelper.maxLength(300).isValid(this.state.description)
+    ];
+    return validators.every(validator => validator === true);
     }
 
   render() {
     let { loading, user, error } = this.props;
 
     let errorMessage;
-
-    //TODO is correct put here this validations?
-    let isSubmitEnabled = this.isSubmitEnabled();
 
     if (error.data || error.message) {
       errorMessage = (
@@ -120,7 +118,7 @@ class Signup extends React.Component {
             </Header>
 
             <Form loading={loading} onSubmit={this.handleSubmit} error>
-              <CustomField
+              <CustomTextInput
                 name='name'
                 label='Full name:'
                 control={Input}
@@ -130,7 +128,7 @@ class Signup extends React.Component {
                 required={true}
               />
 
-              <CustomField
+              <CustomTextInput
                 name='userName'
                 label='User name:'
                 control={Input}
@@ -152,7 +150,7 @@ class Signup extends React.Component {
                 placeholder="DD-MM-YYYY"
               />
 
-              <CustomField
+              <CustomTextInput
                 name='country'
                 label='Select your contry:'
                 control={Select}
@@ -163,7 +161,7 @@ class Signup extends React.Component {
                 options={countryOptions}
               />
 
-              <CustomField
+              <CustomTextInput
                 name='phoneNumber'
                 label='Phone number:'
                 control={Input}
@@ -173,7 +171,7 @@ class Signup extends React.Component {
                 required={false}
               />
 
-              <CustomField
+              <CustomTextInput
                 name='email'
                 label='Email:'
                 control={Input}
@@ -183,7 +181,7 @@ class Signup extends React.Component {
                 required={true}
               />
 
-              <CustomField
+              <CustomTextInput
                 name='password'
                 label='Password:'
                 type='password'
@@ -193,7 +191,7 @@ class Signup extends React.Component {
                 required={true}
               />
 
-              <CustomField
+              <CustomTextInput
                 name='description'
                 label='Description:'
                 control={TextArea}
@@ -207,7 +205,7 @@ class Signup extends React.Component {
                 <Grid.Row columns={2}>
                   <Grid.Column>
                     {/* <Form.Input control={Button} disabled={!isSubmitEnabled}>Submit</Form.Input> */}
-                    <Button primary disabled={!isSubmitEnabled}>Submit</Button>
+                    <Button primary disabled={!this.isSubmitEnabled}>Submit</Button>
                   </Grid.Column>
                   <Grid.Column>
                     <Link to='/login'>Cancel</Link>

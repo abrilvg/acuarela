@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import React from 'react';
 import { Redirect, Link } from 'react-router-dom';
 
-import CustomField from '../../../Components/Common/CustomField';
+import CustomTextInput from '../../Common/CustomTextInput';
 import { loginUser } from '../../../Actions/userActions';
 import ValidatorHelper from '../../../Components/Common/Validator';
 
@@ -27,19 +27,19 @@ class Login extends React.Component {
     this.props.loginUser(this.state);
   }
 
-  isSubmitEnabled = () => {
-    return ValidatorHelper.notEmptyText().isValid(this.state.email) &&
-      ValidatorHelper.matchEmail().isValid(this.state.email) &&
-      ValidatorHelper.notEmptyText().isValid(this.state.password) &&
-      ValidatorHelper.minLength(8).isValid(this.state.password) &&
-      ValidatorHelper.maxLength(15).isValid(this.state.password);
+  get isSubmitEnabled () {
+    const validators = [
+      ValidatorHelper.notEmptyText().isValid(this.state.email),
+      ValidatorHelper.matchEmail().isValid(this.state.email),
+      ValidatorHelper.notEmptyText().isValid(this.state.password),
+      ValidatorHelper.minLength(8).isValid(this.state.password),
+      ValidatorHelper.maxLength(15).isValid(this.state.password)
+    ];
+    return validators.every(validator => validator === true);
   }
 
   render() {
     let { loading, user, error } = this.props;
-
-    //TODO is correct put here this validations?
-    let isSubmitEnabled = this.isSubmitEnabled();
 
     const errorMessage = (
       <Message icon negative>
@@ -68,7 +68,7 @@ class Login extends React.Component {
 
             <Form loading={loading} onSubmit={this.handleSubmit} error>
 
-              <CustomField
+              <CustomTextInput
                 name='email'
                 label='Email:'
                 control={Input}
@@ -78,7 +78,7 @@ class Login extends React.Component {
                 required={true}
               />
 
-              <CustomField
+              <CustomTextInput
                 name='password'
                 label='Password:'
                 type='password'
@@ -89,7 +89,7 @@ class Login extends React.Component {
               />
 
               <div>
-                <Button primary disabled={!isSubmitEnabled}>Login</Button>
+                <Button primary disabled={!this.isSubmitEnabled}>Login</Button>
                 <Link to='/signup'>Sign up</Link>
               </div>
 

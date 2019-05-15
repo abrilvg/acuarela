@@ -3,7 +3,7 @@ import { Button, Form, Input, Select, Grid} from 'semantic-ui-react';
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 
-import CustomField from '../../Common/CustomField';
+import CustomTextInput from '../../Common/CustomTextInput';
 import ValidatorHelper from '../../Common/Validator';
 import Uploader from '../../Common/Uploader';
 
@@ -77,17 +77,18 @@ class AcuarelaForm extends Component {
     });
   }
 
-  isSubmitEnabled = () => {
-    return ValidatorHelper.notEmptyText().isValid(this.state.name) &&
-      ValidatorHelper.notEmptyValue().isValid(this.state.createdDate) &&
-      ValidatorHelper.notEmptyText().isValid(this.state.technique) &&
-      ValidatorHelper.notEmptyText().isValid(this.state.country) &&
-      this.state.images.length > 0;
+  get isSubmitEnabled () {
+    const validators = [
+      ValidatorHelper.notEmptyText().isValid(this.state.name),
+      ValidatorHelper.notEmptyValue().isValid(this.state.createdDate),
+      ValidatorHelper.notEmptyText().isValid(this.state.technique),
+      ValidatorHelper.notEmptyText().isValid(this.state.country),
+      this.state.images.length > 0
+    ];
+    return validators.every(validator => validator === true);
   }
 
   render() {
-    //TODO is correct put here this validations?
-    let isSubmitEnabled = this.isSubmitEnabled();
 
     const { loading, error } = this.props;
 
@@ -97,7 +98,7 @@ class AcuarelaForm extends Component {
           <h2>{'New Acuarela'}</h2>
           {/* <h1 style={{marginTop:"1em"}}>{acuarela._id ? 'Edit Contact' : 'Add New Contact'}</h1> */}
           <Form onSubmit={this.handleSubmit} loading={loading} error>
-            <CustomField
+            <CustomTextInput
               name='name'
               label='Full name:'
               control={Input}
@@ -119,7 +120,7 @@ class AcuarelaForm extends Component {
                 placeholder="DD-MM-YYYY"
             />
 
-            <CustomField
+            <CustomTextInput
               name='technique'
               label='Select technique applied:'
               control={Select}
@@ -130,7 +131,7 @@ class AcuarelaForm extends Component {
               options={techniqueOptions}
             />
 
-            <CustomField
+            <CustomTextInput
               name='country'
               label='Select your contry:'
               control={Select}
@@ -146,7 +147,7 @@ class AcuarelaForm extends Component {
               onChange={this.handleUploadImages}
             />
 
-            <Button primary type='submit' disabled={!isSubmitEnabled}>Save</Button>
+            <Button primary type='submit' disabled={!this.isSubmitEnabled}>Save</Button>
           </Form>
 
           {error}

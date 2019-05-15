@@ -3,17 +3,19 @@ import React from 'react';
 import { Container } from 'semantic-ui-react';
 
 import AcuarelasList from '../AcuarelasList';
-import { getAcuarelasByCurrentUser, clearAcuarelasError } from '../../../Actions/acuarelaActions';
+import { getAcuarelasByCurrentUser, clearAcuarelasError, getAllAcuarelas } from '../../../Actions/acuarelaActions';
 import { logoutUser } from '../../../Actions/userActions';
+import { getAcuarelasByUser } from '../../../Selectors/acuarelaSelectors';
 
 class AcuarelasByUser extends React.Component {
 
   componentWillMount = () => {
     //TODO other place?
-    this.props.getAcuarelasByCurrentUser();
+    // this.props.getAcuarelasByCurrentUser();
+    //should work without having to load again, it supposed store was already filled
+    this.props.getAllAcuarelas();
   }
 
-  //TODO ask Tobby if it is ok to put the same acuarelas all users acuarelas and other time just current acuarelas
   render() {
     return (
       <Container style={{paddingTop:'20px'}}>
@@ -31,10 +33,15 @@ class AcuarelasByUser extends React.Component {
 
 function mapStateToProps(state) {
   return {
-    acuarelas: state.acuarelaStore.acuarelas,
+    acuarelas: getAcuarelasByUser(state.acuarelaStore, state.userStore.user.data._id),
     loading: state.acuarelaStore.loading,
     error: state.acuarelaStore.error
   }
 }
 
-export default connect(mapStateToProps, {getAcuarelasByCurrentUser, logoutUser, clearAcuarelasError})(AcuarelasByUser);
+export default connect(mapStateToProps, {
+  getAcuarelasByCurrentUser,
+  logoutUser,
+  clearAcuarelasError,
+  getAllAcuarelas
+})(AcuarelasByUser);

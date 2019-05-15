@@ -7,7 +7,7 @@ import ValidatorHelper from '../Validator';
 /**
  * Based on Form.Input supported field in Semantic ui ^0.83.0
  */
-export default class CustomField extends React.Component {
+export default class CustomTextInput extends React.Component {
 
   static propTypes = {
     name: PropTypes.string.isRequired,

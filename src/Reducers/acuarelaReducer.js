@@ -1,5 +1,5 @@
 import Immutable from 'seamless-immutable';
-import UserSession from '../Actions/UserSession';
+import { HandleError } from '../Actions/errorHandler';
 
 const initalState = Immutable({
   acuarela: {},
@@ -11,8 +11,6 @@ const initalState = Immutable({
 export default (state = initalState, action = {}) => {
   switch (action.type) {
     case 'FETCH_ACUARELAS_FULFILLED': {
-      //TODO every request should we update the token? only in success?
-      UserSession.setToken(action.payload.data.token); //should we trust token will always arrive?
       return state.merge({
         acuarelas: action.payload.data.data,
         loading: false
@@ -26,20 +24,24 @@ export default (state = initalState, action = {}) => {
     }
 
     case 'FETCH_ACUARELAS_REJECTED': {
-      let payload = action.payload;
+      const payload = action.payload;
+      //TODO heck how to handle with internet connection error
+      //second error shouldnot be neccesary
+      const error = payload.response ? {
+        message: payload.response.data.message,
+        status: payload.response.status
+      } : {
+        message: payload.message
+      };
+      //HandleError(error);
+
       return state.merge({
         loading: false,
-        error: payload.response ? {
-          message: payload.response.data.message,
-          status: payload.response.status
-        } : {
-          message: payload.message
-        }
+        error: error
       });
     }
 
     case 'FETCH_ACUARELAS_BY_USER_FULFILLED': {
-      UserSession.setToken(action.payload.data.token);
       return state.merge({
         acuarelas: action.payload.data.data,
         loading: false
@@ -65,18 +67,17 @@ export default (state = initalState, action = {}) => {
       });
     }
 
-    case 'SAVE_ACUARELA_PENDING': {
-      return state.merge({
-        loading: true
-      });
-    }
-
     case 'SAVE_ACUARELA_FULFILLED': {
-      UserSession.setToken(action.payload.data.token);
       return state.merge({
         acuarela: action.payload.data.data,
         acuarelas: [...state.acuarelas, action.payload.data.data],
         loading: false
+      });
+    }
+
+    case 'SAVE_ACUARELA_PENDING': {
+      return state.merge({
+        loading: true
       });
     }
 
@@ -112,7 +113,6 @@ export default (state = initalState, action = {}) => {
     }
 
     case 'FETCH_ACUARELA_DETAILS_FULFILLED': {
-      UserSession.setToken(action.payload.data.token);
       return state.merge({
         acuarela: action.payload.data.data,
         loading: false
