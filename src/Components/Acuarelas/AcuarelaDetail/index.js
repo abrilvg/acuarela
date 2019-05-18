@@ -46,12 +46,14 @@ class AcuarelaDetail extends React.Component {
   }
 }
 
-function mapStateToProps(state) {
-  return {
-    acuarela: state.acuarelaStore.acuarela,
-    error: state.acuarelaStore.error,
-    loading: state.acuarelaStore.loading
-  }
-}
+const mapStateToProps = state => ({
+  acuarela: state.acuarelaStore.acuarela,
+  error: state.acuarelaStore.error,
+  loading: state.acuarelaStore.loading
+})
 
-export default connect(mapStateToProps, {getAcuarelaDetails})(withRouter(AcuarelaDetail));
+const mapDispatchToProps = dispatch => ({
+  getAcuarelaDetails: (acuarelaId) => getAcuarelaDetails(dispatch, acuarelaId)
+})
+
+export default connect(mapStateToProps, mapDispatchToProps)(withRouter(AcuarelaDetail));

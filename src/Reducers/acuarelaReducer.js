@@ -10,16 +10,16 @@ const initalState = Immutable({
 
 export default (state = initalState, action = {}) => {
   switch (action.type) {
+    case 'FETCH_ACUARELAS_START': {
+      return state.merge({
+        loading: true
+      });
+    }
+
     case 'FETCH_ACUARELAS_FULFILLED': {
       return state.merge({
         acuarelas: action.payload.data.data,
         loading: false
-      });
-    }
-
-    case 'FETCH_ACUARELAS_PENDING': {
-      return state.merge({
-        loading: true
       });
     }
 
@@ -33,11 +33,16 @@ export default (state = initalState, action = {}) => {
       } : {
         message: payload.message
       };
-      //HandleError(error);
 
-      return state.merge({
+      return stateTemp.merge({
         loading: false,
         error: error
+      });
+    }
+
+    case 'FETCH_ACUARELAS_BY_USER_START': {
+      return state.merge({
+        loading: true
       });
     }
 
@@ -45,12 +50,6 @@ export default (state = initalState, action = {}) => {
       return state.merge({
         acuarelas: action.payload.data.data,
         loading: false
-      });
-    }
-
-    case 'FETCH_ACUARELAS_BY_USER_PENDING': {
-      return state.merge({
-        loading: true
       });
     }
 
@@ -67,17 +66,17 @@ export default (state = initalState, action = {}) => {
       });
     }
 
+    case 'SAVE_ACUARELA_START': {
+      return state.merge({
+        loading: true
+      });
+    }
+
     case 'SAVE_ACUARELA_FULFILLED': {
       return state.merge({
         acuarela: action.payload.data.data,
         acuarelas: [...state.acuarelas, action.payload.data.data],
         loading: false
-      });
-    }
-
-    case 'SAVE_ACUARELA_PENDING': {
-      return state.merge({
-        loading: true
       });
     }
 
@@ -112,16 +111,16 @@ export default (state = initalState, action = {}) => {
       });
     }
 
+    case 'FETCH_ACUARELA_DETAILS_START': {
+      return state.merge({
+        loading: true
+      });
+    }
+
     case 'FETCH_ACUARELA_DETAILS_FULFILLED': {
       return state.merge({
         acuarela: action.payload.data.data,
         loading: false
-      });
-    }
-
-    case 'FETCH_ACUARELA_DETAILS_PENDING': {
-      return state.merge({
-        loading: true
       });
     }
 

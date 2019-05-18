@@ -46,12 +46,14 @@ class AcuarelaFormPage extends React.Component {
   }
 }
 
-function mapStateToProps(state) {
-  return {
-    // acuarela: state.acuarelaStore.acuarela,
-    error: state.acuarelaStore.error,
-    loading: state.acuarelaStore.loading
-  }
-}
+const mapStateToProps = state => ({
+  // acuarela: state.acuarelaStore.acuarela,
+  error: state.acuarelaStore.error,
+  loading: state.acuarelaStore.loading
+})
 
-export default connect(mapStateToProps, {saveAcuarela})(withRouter(AcuarelaFormPage));
+const mapDispatchToProps = dispatch => ({
+  saveAcuarela: (acuarela) => saveAcuarela(dispatch, acuarela)
+})
+
+export default connect(mapStateToProps, mapDispatchToProps)(withRouter(AcuarelaFormPage));

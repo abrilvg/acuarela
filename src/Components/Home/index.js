@@ -31,12 +31,16 @@ class Home extends React.Component {
   }
 }
 
-function mapStateToProps(state) {
-  return {
-    acuarelas: state.acuarelaStore.acuarelas,
-    loading: state.acuarelaStore.loading,
-    error: state.acuarelaStore.error
-  }
-}
+const mapStateToProps = state => ({
+  acuarelas: state.acuarelaStore.acuarelas,
+  loading: state.acuarelaStore.loading,
+  error: state.acuarelaStore.error
+})
 
-export default connect(mapStateToProps, {getAllAcuarelas, logoutUser, clearAcuarelasError})(Home);
+const mapDispatchToProps = dispatch => ({
+  getAllAcuarelas: () => getAllAcuarelas(dispatch),
+  logoutUser: () => logoutUser(dispatch),
+  clearAcuarelasError: () => clearAcuarelasError(dispatch)
+})
+
+export default connect(mapStateToProps, mapDispatchToProps)(Home);

@@ -14,13 +14,14 @@ class Profile extends React.Component {
     this.state = {};
   }
 
-  handleItemClick = (e, { value }) => {
+  handleItemClick = (event, data) => {
+    const { value } = data;
     if (value === 'logout') {
-      this.props.logoutUser();
+      this.props.logoutUSer();
       this.props.history.push('/login');
     }
-    //TODO use switch
-    if ( value === 'myAcuarelas') {
+    //TODO user switch
+    if (value === 'myAcuarelas') {
       this.props.history.push('/acuarelas-user');
     }
   }
@@ -65,10 +66,12 @@ class Profile extends React.Component {
   }
 }
 
-function mapStateToProps(state) {
-  return {
-    user: state.userStore.user
-  }
-}
+const mapStateToProps = state => ({
+  user: state.userStore.user
+})
 
-export default withRouter(connect(mapStateToProps, {logoutUser})(Profile));
+const mapDispatchToProps = dispatch => ({
+  logoutUSer: () => logoutUser(dispatch)
+})
+
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Profile));

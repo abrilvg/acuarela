@@ -31,17 +31,17 @@ class AcuarelasByUser extends React.Component {
   }
 }
 
-function mapStateToProps(state) {
-  return {
-    acuarelas: getAcuarelasByUser(state.acuarelaStore, state.userStore.user.data._id),
-    loading: state.acuarelaStore.loading,
-    error: state.acuarelaStore.error
-  }
-}
+const mapStateToProps = state => ({
+  acuarelas: getAcuarelasByUser(state.acuarelaStore, state.userStore.user.data._id),
+  loading: state.acuarelaStore.loading,
+  error: state.acuarelaStore.error
+})
 
-export default connect(mapStateToProps, {
-  getAcuarelasByCurrentUser,
-  logoutUser,
-  clearAcuarelasError,
-  getAllAcuarelas
-})(AcuarelasByUser);
+const mapDispatchToProps = dispatch => ({
+  getAcuarelasByCurrentUser: () => getAcuarelasByCurrentUser(dispatch),
+  logoutUser: () => logoutUser(dispatch),
+  clearAcuarelasError: () => clearAcuarelasError(dispatch),
+  getAllAcuarelas: () => getAllAcuarelas(dispatch)
+})
+
+export default connect(mapStateToProps, mapDispatchToProps)(AcuarelasByUser);

@@ -226,12 +226,14 @@ class Signup extends React.Component {
   }
 }
 
-function mapStateToProps(state) {
-  return {
-    user: state.userStore.user,
-    error: state.userStore.error,
-    loading: state.userStore.loading
-  }
-}
+const mapStateToProps = state => ({
+  user: state.userStore.user,
+  error: state.userStore.error,
+  loading: state.userStore.loading
+})
 
-export default connect(mapStateToProps, {createUser})(Signup);
+const mapDispatchToProps = dispatch => ({
+  createUser: (userData) => createUser(dispatch, userData)
+})
+
+export default connect(mapStateToProps, mapDispatchToProps)(Signup);

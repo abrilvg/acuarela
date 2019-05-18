@@ -100,8 +100,13 @@ class Uploader extends React.Component {
     )
   }
 }
-function mapStateToProps() {
-  return {}
-}
 
-export default connect(mapStateToProps, {startLoadingPictures, successLoadingPictures, errorLoadingPictures})(Uploader);
+const mapStateToProps = () => ({});
+
+const mapDispatchToProps = dispatch => ({
+  startLoadingPictures: () => startLoadingPictures(dispatch),
+  successLoadingPictures: () => successLoadingPictures(dispatch),
+  errorLoadingPictures: (error) => errorLoadingPictures(dispatch, error)
+})
+
+export default connect(mapStateToProps, mapDispatchToProps)(Uploader);

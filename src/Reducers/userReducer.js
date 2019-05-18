@@ -18,6 +18,12 @@ const initalState = Immutable({
 
 export default (state = initalState, action = {}) => {
   switch (action.type) {
+    case 'CREATE_USER_START': {
+      return state.merge({
+        loading: true
+      });
+    }
+
     case 'CREATE_USER_FULFILLED': {
       UserSession.saveUser(action.payload.data);
       return state.merge({
@@ -26,12 +32,6 @@ export default (state = initalState, action = {}) => {
           isLoggedIn: true
         },
         loading: false
-      });
-    }
-
-    case 'CREATE_USER_PENDING': {
-      return state.merge({
-        loading: true
       });
     }
 
@@ -48,6 +48,12 @@ export default (state = initalState, action = {}) => {
       });
     }
 
+    case 'USER_LOGIN_START': {
+      return state.merge({
+        loading: true
+      });
+    }
+
     case 'USER_LOGIN_FULFILLED': {
       UserSession.saveUser(action.payload.data);
       return state.merge({
@@ -56,12 +62,6 @@ export default (state = initalState, action = {}) => {
           isLoggedIn: true
         },
         loading: false
-      });
-    }
-
-    case 'USER_LOGIN_PENDING': {
-      return state.merge({
-        loading: true
       });
     }
 

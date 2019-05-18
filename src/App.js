@@ -47,10 +47,8 @@ class App extends Component {
   }
 }
 
-function mapStateToProps(state) {
-  return {
-    user: state.userStore.user
-  }
-}
+const mapStateToProps = state => ({
+  user: state.userStore.user
+})
 
 export default connect(mapStateToProps, {})(App);
