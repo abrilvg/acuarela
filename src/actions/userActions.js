@@ -1,4 +1,4 @@
-import { nlPOST } from '../api';
+import { notAuthorizedPOST } from '../api';
 
 const url = 'users';
 
@@ -6,7 +6,7 @@ export const createUser = (dispatch, userData) => {
   dispatch({
     type: 'CREATE_USER_START'
   });
-  nlPOST(`${url}`, userData)
+  notAuthorizedPOST(`${url}`, userData)
     .then(response => {
       dispatch({
         type: 'CREATE_USER_FULFILLED',
@@ -16,8 +16,7 @@ export const createUser = (dispatch, userData) => {
     .catch(error => {
       console.log('login error', error);
       dispatch({
-        type: 'CREATE_USER_REJECTED',
-        payload: error
+        type: 'CREATE_USER_REJECTED'
       });
     })
 }
@@ -26,7 +25,7 @@ export const loginUser = (dispatch, userData) => {
   dispatch({
     type: 'USER_LOGIN_START'
   });
-  nlPOST(`${url}/login`, userData)
+  notAuthorizedPOST(`${url}/login`, userData)
     .then(response => {
       dispatch({
         type: 'USER_LOGIN_FULFILLED',
@@ -36,8 +35,7 @@ export const loginUser = (dispatch, userData) => {
     .catch(error => {
       console.log('login error', error);
       dispatch({
-        type: 'USER_LOGIN_REJECTED',
-        payload: error
+        type: 'USER_LOGIN_REJECTED'
       });
     })
 }

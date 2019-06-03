@@ -1,39 +1,47 @@
 import axios from 'axios';
 import UserSession from '../actions/userSession';
+import HandleError from '../actions/handleError'
 
 let baseUrl = 'http://localhost:1234';
 
-//not logged get
-const nlGet = (route) => {
-  return axios.get(`${baseUrl}/${route}`);
+const instance = axios.create();
+
+// Add a response interceptor
+instance.interceptors.response.use(response => {
+  return response;
+}, error => {
+  HandleError(error); //handle generic errors
+  return Promise.reject(error);
+});
+
+const getHeaders = () => {
+  let token = UserSession.getToken();
+  return {
+    'Authorization': `Bearer ${token}`
+  }
 }
 
-// get when already authentificated
 const get = (route) => {
-  let token = UserSession.getToken();
-  let headers = {
-    'Authorization': `Bearer ${token}`
-  }
-  return axios.get(`${baseUrl}/${route}`, { headers });
+  const headers = getHeaders();
+  return instance.get(`${baseUrl}/${route}`, { headers });
 }
 
-//not logged post
-const nlPost = (route, data) => {
-  return axios.post(`${baseUrl}/${route}`, data);
-}
-
-//post when already authentificated
 const post = (route, data) => {
-  let token = UserSession.getToken();
-  let headers = {
-    'Authorization': `Bearer ${token}`
-  }
-  return axios.post(`${baseUrl}/${route}`, data, { headers });
+  const headers = getHeaders();
+  return instance.post(`${baseUrl}/${route}`, data, { headers } );
+}
+
+const notAuthorizedGet = (route) => {
+  return instance.get(`${baseUrl}/${route}`);
+}
+
+const notAuthorizedPost = (route, data) => {
+  return instance.post(`${baseUrl}/${route}`, data);
 }
 
 export {
   get as GET,
   post as POST,
-  nlPost as nlPOST,
-  nlGet as nlGET
+  notAuthorizedPost as notAuthorizedPOST,
+  notAuthorizedGet as notAuthorizedGET
 }

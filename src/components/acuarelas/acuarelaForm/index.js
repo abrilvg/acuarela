@@ -30,7 +30,6 @@ class AcuarelaForm extends Component {
   static propTypes = {
     acuarela: PropTypes.object,
     loading: PropTypes.bool.isRequired,
-    error: PropTypes.any
   };
 
   componentWillReceiveProps = (nextProps) => { // Load Acuarela
@@ -90,7 +89,7 @@ class AcuarelaForm extends Component {
 
   render() {
 
-    const { loading, error } = this.props;
+    const { loading } = this.props;
 
     return (
       <Grid centered columns={2}>
@@ -149,8 +148,6 @@ class AcuarelaForm extends Component {
 
             <Button primary type='submit' disabled={!this.isSubmitEnabled}>Save</Button>
           </Form>
-
-          {error}
 
         </Grid.Column>
       </Grid>

@@ -12,8 +12,7 @@ const initalState = Immutable({
       _id: userData.id
     }
   },
-  loading: false,
-  error: false,
+  loading: false
 });
 
 export default (state = initalState, action = {}) => {
@@ -36,15 +35,8 @@ export default (state = initalState, action = {}) => {
     }
 
     case 'CREATE_USER_REJECTED': {
-      let payload = action.payload;
       return state.merge({
-        loading: false,
-        error: payload.response ? {
-          message: payload.response.data.message,
-          status: payload.response.status
-        } : {
-          message: payload.message
-        }
+        loading: false
       });
     }
 
@@ -66,15 +58,8 @@ export default (state = initalState, action = {}) => {
     }
 
     case 'USER_LOGIN_REJECTED': {
-      let payload = action.payload;
       return state.merge({
-        loading: false,
-        error: payload.response ? {
-          message: payload.response.data.message,
-          status: payload.response.status
-        } : {
-          message: payload.message
-        }
+        loading: false
       });
     }
 
@@ -85,8 +70,7 @@ export default (state = initalState, action = {}) => {
           data: {},
           isLoggedIn: false
         },
-        loading: false,
-        error: false
+        loading: false
       });
     }
 

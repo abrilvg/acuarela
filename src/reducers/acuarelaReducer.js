@@ -1,11 +1,8 @@
 import Immutable from 'seamless-immutable';
-import { HandleError } from '../actions/errorHandler';
-import { StatisticLabel } from 'semantic-ui-react';
 
 const initalState = Immutable({
   acuarela: {},
   acuarelas: [],
-  error: false,
   loading: false
 });
 
@@ -25,19 +22,8 @@ export default (state = initalState, action = {}) => {
     }
 
     case 'FETCH_ACUARELAS_REJECTED': {
-      const payload = action.payload;
-      //TODO heck how to handle with internet connection error
-      //second error shouldnot be neccesary
-      const error = payload.response ? {
-        message: payload.response.data.message,
-        status: payload.response.status
-      } : {
-        message: payload.message
-      };
-
-      return StatisticLabel.merge({
+      return state.merge({
         loading: false,
-        error: error
       });
     }
 
@@ -55,15 +41,8 @@ export default (state = initalState, action = {}) => {
     }
 
     case 'FETCH_ACUARELAS_BY_USER_REJECTED': {
-      let payload = action.payload;
       return state.merge({
-        loading: false,
-        error: payload.response ? {
-          message: payload.response.data.message,
-          status: payload.response.status
-        } : {
-          message: payload.message
-        }
+        loading: false
       });
     }
 
@@ -82,15 +61,9 @@ export default (state = initalState, action = {}) => {
     }
 
     case 'SAVE_ACUARELA_REJECTED': {
-      const errors = { global: 'error' };
       return state.merge({
-        error: errors,
         loading: false
       });
-    }
-
-    case 'CLEAN_ACUARELAS': {
-      return initalState;
     }
 
     case 'LOADING_ACUARELA_STARTS': {
@@ -108,7 +81,6 @@ export default (state = initalState, action = {}) => {
     case 'LOADING_ACUARELA_ERROR': {
       return state.merge({
         loading: false,
-        error: action.error
       });
     }
 
@@ -126,15 +98,8 @@ export default (state = initalState, action = {}) => {
     }
 
     case 'FETCH_ACUARELA_DETAILS_REJECTED': {
-      let payload = action.payload;
       return state.merge({
         loading: false,
-        error: payload.response ? {
-          message: payload.response.data.message,
-          status: payload.response.status
-        } : {
-          message: payload.message
-        }
       });
     }
 

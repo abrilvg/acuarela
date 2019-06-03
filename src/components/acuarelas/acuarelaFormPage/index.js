@@ -40,7 +40,6 @@ class AcuarelaFormPage extends React.Component {
         // acuarela={this.props.acuarela}
         loading={this.props.loading}
         onSubmit={this.handleSubmit}
-        error={this.props.error}
       />
     );
   }
@@ -48,7 +47,6 @@ class AcuarelaFormPage extends React.Component {
 
 const mapStateToProps = state => ({
   // acuarela: state.acuarelaStore.acuarela,
-  error: state.acuarelaStore.error,
   loading: state.acuarelaStore.loading
 })
 

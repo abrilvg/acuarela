@@ -7,7 +7,7 @@ export const getAllAcuarelas = (dispatch) => {
   dispatch({
     type: 'FETCH_ACUARELAS_START'
   });
-  GET(url)
+  GET(url, dispatch)
     .then(response => {
       dispatch({
         type: 'FETCH_ACUARELAS_FULFILLED',
@@ -16,9 +16,8 @@ export const getAllAcuarelas = (dispatch) => {
     })
     .catch(error => {
       console.log('fetch acuarelas error', error);
-      dispatch({
+        dispatch({
         type: 'FETCH_ACUARELAS_REJECTED',
-        payload: error
       });
     })
 }
@@ -39,7 +38,6 @@ export const getAcuarelasByCurrentUser = (dispatch) => {
       console.log('fetch acuarelas by user error', error);
       dispatch({
         type: 'FETCH_ACUARELAS_BY_USER_REJECTED',
-        payload: error
       });
     })
 }
@@ -59,7 +57,6 @@ export const getAcuarelaDetails = (dispatch, acuarelaId) => {
       console.log('fetch acuarelas by user error', error);
       dispatch({
         type: 'FETCH_ACUARELA_DETAILS_REJECTED',
-        payload: error
       });
     })
 }
@@ -83,15 +80,8 @@ export const saveAcuarela = (dispatch, acuarelaData) => {
       console.log('save acuarela error', error);
       dispatch({
         type: 'SAVE_ACUARELA_REJECTED',
-        payload: error
       });
     })
-}
-
-export const clearAcuarelasError = (dispatch) => {
-  dispatch({
-    type: 'CLEAN_ACUARELAS'
-  });
 }
 
 export const startLoadingPictures = (dispatch) => {

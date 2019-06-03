@@ -48,7 +48,6 @@ class AcuarelaDetail extends React.Component {
 
 const mapStateToProps = state => ({
   acuarela: state.acuarelaStore.acuarela,
-  error: state.acuarelaStore.error,
   loading: state.acuarelaStore.loading
 })
 

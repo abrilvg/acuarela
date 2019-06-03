@@ -86,21 +86,21 @@ class Signup extends React.Component {
     }
 
   render() {
-    let { loading, user, error } = this.props;
+    let { loading, user } = this.props;
 
-    let errorMessage;
+    // let errorMessage;
 
-    if (error.data || error.message) {
-      errorMessage = (
-        <Message icon negative>
-          <Icon name='dont' />
-          <Message.Content>
-              <Message.Header>{error.data? error.data.message: error.message}</Message.Header>
-              Please try again
-         </Message.Content>
-        </Message>
-      );
-    }
+    // if (error.data || error.message) {
+    //   errorMessage = (
+    //     <Message icon negative>
+    //       <Icon name='dont' />
+    //       <Message.Content>
+    //           <Message.Header>{error.data? error.data.message: error.message}</Message.Header>
+    //           Please try again
+    //      </Message.Content>
+    //     </Message>
+    //   );
+    // }
 
     if (user.isLoggedIn) return <Redirect to='/' />;
 
@@ -214,7 +214,7 @@ class Signup extends React.Component {
               </Grid>
 
             </Form>
-            {errorMessage}
+            {/* {errorMessage} */}
 
           </Grid.Column>
           <Grid.Column>
@@ -228,7 +228,6 @@ class Signup extends React.Component {
 
 const mapStateToProps = state => ({
   user: state.userStore.user,
-  error: state.userStore.error,
   loading: state.userStore.loading
 })
 

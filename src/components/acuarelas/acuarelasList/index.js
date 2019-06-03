@@ -6,10 +6,7 @@ import Acuarela from '../acuarela';
 
 export default function AcuarelasList({
   acuarelas,
-  loading,
-  error,
-  logoutUser,
-  clearAcuarelasError
+  loading
 }){
 
   const loadingMessage = (
@@ -33,22 +30,14 @@ export default function AcuarelasList({
     </Message>
   );
 
-  if (error.status === 401) {
-    //TODO review other way to handle this
-    //delete user data from localstorage and redux store cause token is not allows anymore
-    logoutUser();
-    //TODO how to handle this? clean acuarelas because we want to clean the error user unauthorized
-    clearAcuarelasError();
-  }
-
-  const timeoutMessage = (
-    <Message icon negative>
-      <Icon name='wait' />
-      <Message.Content>
-          <Message.Header>{error.message}</Message.Header>
-      </Message.Content>
-    </Message>
-  );
+  // const timeoutMessage = (
+  //   <Message icon negative>
+  //     <Icon name='wait' />
+  //     <Message.Content>
+  //         <Message.Header>{error.message}</Message.Header>
+  //     </Message.Content>
+  //   </Message>
+  // );
 
   const acuarelasList = (
     <Grid doubling columns={6}>
@@ -70,8 +59,7 @@ export default function AcuarelasList({
   return (
     <div>
       { loading && loadingMessage }
-      { acuarelas.length === 0 && !loading && !error && emptyMessage }
-      { error.message && timeoutMessage }
+      { acuarelas.length === 0 && !loading && emptyMessage }
       { acuarelas.length > 0 && acuarelasList }
     </div>
   );

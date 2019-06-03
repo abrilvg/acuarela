@@ -3,8 +3,7 @@ import React from 'react';
 import { Container } from 'semantic-ui-react';
 
 import AcuarelasList from '../acuarelasList';
-import { getAcuarelasByCurrentUser, clearAcuarelasError, getAllAcuarelas } from '../../../actions/acuarelaActions';
-import { logoutUser } from '../../../actions/userActions';
+import { getAcuarelasByCurrentUser, getAllAcuarelas } from '../../../actions/acuarelaActions';
 import { getAcuarelasByUser } from '../../../selectors/acuarelaSelectors';
 
 class AcuarelasByUser extends React.Component {
@@ -22,9 +21,6 @@ class AcuarelasByUser extends React.Component {
         <AcuarelasList
           acuarelas={this.props.acuarelas}
           loading={this.props.loading}
-          error={this.props.error}
-          logoutUser={this.props.logoutUser}
-          clearAcuarelasError={this.props.clearAcuarelasError}
         />
       </Container>
     );
@@ -33,14 +29,11 @@ class AcuarelasByUser extends React.Component {
 
 const mapStateToProps = state => ({
   acuarelas: getAcuarelasByUser(state.acuarelaStore, state.userStore.user.data._id),
-  loading: state.acuarelaStore.loading,
-  error: state.acuarelaStore.error
+  loading: state.acuarelaStore.loading
 })
 
 const mapDispatchToProps = dispatch => ({
   getAcuarelasByCurrentUser: () => getAcuarelasByCurrentUser(dispatch),
-  logoutUser: () => logoutUser(dispatch),
-  clearAcuarelasError: () => clearAcuarelasError(dispatch),
   getAllAcuarelas: () => getAllAcuarelas(dispatch)
 })
 

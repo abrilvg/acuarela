@@ -39,17 +39,17 @@ class Login extends React.Component {
   }
 
   render() {
-    let { loading, user, error } = this.props;
+    let { loading, user } = this.props;
 
-    const errorMessage = (
-      <Message icon negative>
-        <Icon name='dont' />
-        <Message.Content>
-          <Message.Header>{error.message}</Message.Header>
-          Please try again
-        </Message.Content>
-      </Message>
-    );
+    // const errorMessage = (
+    //   <Message icon negative>
+    //     <Icon name='dont' />
+    //     <Message.Content>
+    //       <Message.Header>{error.message}</Message.Header>
+    //       Please try again
+    //     </Message.Content>
+    //   </Message>
+    // );
 
     if (user.isLoggedIn) return <Redirect to='/' />;
 
@@ -94,7 +94,7 @@ class Login extends React.Component {
               </div>
 
             </Form>
-            {error && errorMessage}
+            {/* {error && errorMessage} */}
 
           </Grid.Column>
           <Grid.Column>
@@ -107,7 +107,6 @@ class Login extends React.Component {
 
 const mapStateToProps = state => ({
   user: state.userStore.user,
-  error: state.userStore.error,
   loading: state.userStore.loading
 })
 
