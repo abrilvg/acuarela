@@ -1,4 +1,4 @@
-import { notAuthorizedPOST } from '../api';
+import { notAuthorizedPOST } from '../api/api';
 
 const url = 'users';
 

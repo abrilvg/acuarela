@@ -2,18 +2,13 @@ import { connect } from 'react-redux';
 import React from 'react';
 import { Container } from 'semantic-ui-react';
 
-import AcuarelasList from '../acuarelasList';
+import AcuarelasList from '../acuarelasList/acuarelaList';
 import { getAcuarelasByCurrentUser, getAllAcuarelas } from '../../../actions/acuarelaActions';
 import { getAcuarelasByUser } from '../../../selectors/acuarelaSelectors';
 
 class AcuarelasByUser extends React.Component {
 
-  componentWillMount = () => {
-    //TODO other place?
-    // this.props.getAcuarelasByCurrentUser();
-    //should work without having to load again, it supposed store was already filled
-    this.props.getAllAcuarelas();
-  }
+  componentWillMount = () => { }
 
   render() {
     return (

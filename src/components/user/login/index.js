@@ -39,7 +39,7 @@ class Login extends React.Component {
   }
 
   render() {
-    let { loading, user } = this.props;
+    const { loading, user } = this.props;
 
     // const errorMessage = (
     //   <Message icon negative>

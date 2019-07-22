@@ -1,7 +1,7 @@
 import Immutable from 'seamless-immutable';
-import UserSession from '../actions/userSession';
+import UserSession from '../actions/userSession/userSession';
 
-let userData = UserSession.getUser();
+const userData = UserSession.getUser();
 
 //initial state
 const initalState = Immutable({

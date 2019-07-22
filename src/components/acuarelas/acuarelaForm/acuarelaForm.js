@@ -7,6 +7,7 @@ import CustomTextInput from '../../common/customTextInput';
 import ValidatorHelper from '../../common/validator';
 import Uploader from '../../common/uploader';
 
+//TODO bring to other place
 const countryOptions = [
   { key: 'ar', value: 'ar', flag: 'ar', text: 'Argentina' },
   { key: 'bo', value: 'bo', flag: 'bo', text: 'Bolivia' },

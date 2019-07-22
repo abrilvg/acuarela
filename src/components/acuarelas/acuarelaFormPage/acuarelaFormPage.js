@@ -2,7 +2,7 @@ import { connect } from 'react-redux';
 import React from 'react';
 import { withRouter } from 'react-router-dom';
 
-import AcuarelaForm from '../acuarelaForm';
+import AcuarelaForm from '../acuarelaForm/acuarelaForm';
 import { saveAcuarela } from '../../../actions/acuarelaActions';
 
 //import './AcuarelaFormPage.css';

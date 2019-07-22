@@ -2,10 +2,10 @@ import { connect } from 'react-redux';
 import React, { Component } from 'react';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
 
-import AcuarelaDetail from './components/acuarelas/acuarelaDetail';
+import AcuarelaDetail from './components/acuarelas/acuarelaDetail/acuarelaDetail';
 import About from './components/about';
-import AcuarelaFormPage from './components/acuarelas/acuarelaFormPage';
-import AcuarelasByUser from './components/acuarelas/acuarelasByUser';
+import AcuarelaFormPage from './components/acuarelas/acuarelaFormPage/acuarelaFormPage';
+import AcuarelasByUser from './components/acuarelas/acuarelasByUser/acuarelasByUser';
 import ErrorComponent from './components/error';
 import Contact from './components/contact';
 import Home from './components/home';

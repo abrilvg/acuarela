@@ -2,7 +2,7 @@ import React from 'react';
 import { Grid, Message, Icon } from 'semantic-ui-react';
 import { Link } from 'react-router-dom';
 
-import Acuarela from '../acuarela';
+import Acuarela from '../acuarela/acuarela';
 
 export default function AcuarelasList({
   acuarelas,

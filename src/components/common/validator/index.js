@@ -106,7 +106,7 @@ const ValidatorHelper = {
     },
     //validate all list of validators
     validate: (value, validators) => {
-        let errors = [];
+        const errors = [];
         validators.forEach(validator => {
             if(!validator.isValid(value)) {
                 errors.push(validator.getMessage());

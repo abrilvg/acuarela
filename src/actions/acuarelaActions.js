@@ -1,5 +1,5 @@
-import { GET, POST } from '../api';
-import UserSession from '../actions/userSession';
+import { GET, POST } from '../api/api';
+import UserSession from '../actions/userSession/userSession';
 
 const url = 'acuarelas';
 
@@ -16,7 +16,7 @@ export const getAllAcuarelas = (dispatch) => {
     })
     .catch(error => {
       console.log('fetch acuarelas error', error);
-        dispatch({
+      dispatch({
         type: 'FETCH_ACUARELAS_REJECTED',
       });
     })

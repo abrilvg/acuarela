@@ -27,9 +27,9 @@ class Profile extends React.Component {
   }
 
   render() {
-    let {name} = this.props.user.data;
+    const {name} = this.props.user.data;
 
-    let trigger = (
+    const trigger = (
       <svg width="35" height="35">
         <circle cx="17" cy="17" r="17" fill="#aeaeae" />
         <text x="50%" y="50%" textAnchor="middle" fill="white" fontSize="20px" dy=".3em">

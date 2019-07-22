@@ -1,8 +1,8 @@
 import axios from 'axios';
-import UserSession from '../actions/userSession';
+import UserSession from '../actions/userSession/userSession';
 import HandleError from '../actions/handleError'
 
-let baseUrl = 'http://localhost:1234';
+const baseUrl = 'http://localhost:1234';
 
 const instance = axios.create();
 
@@ -15,7 +15,7 @@ instance.interceptors.response.use(response => {
 });
 
 const getHeaders = () => {
-  let token = UserSession.getToken();
+  const token = UserSession.getToken();
   return {
     'Authorization': `Bearer ${token}`
   }

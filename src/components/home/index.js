@@ -2,7 +2,7 @@ import { connect } from 'react-redux';
 import React from 'react';
 import { Container } from 'semantic-ui-react';
 
-import AcuarelasList from '../acuarelas/acuarelasList';
+import AcuarelasList from '../acuarelas/acuarelasList/acuarelaList';
 import { getAllAcuarelas } from '../../actions/acuarelaActions';
 
 import './home.css';

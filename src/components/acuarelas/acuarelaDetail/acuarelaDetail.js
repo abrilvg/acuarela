@@ -21,8 +21,16 @@ class AcuarelaDetail extends React.Component {
     this.props.history.push('/');
   }
 
+  handleEdit = () => {
+    console.log('edit acuarela');
+  }
+
+  handleDelete = () => {
+    console.log('delete acuarela');
+  }
+
   render() {
-    let { name, createdDate, technique, material, country, rating, images } = this.props.acuarela;
+    const { name, createdDate, technique, material, country, rating, images } = this.props.acuarela;
 
     return (
       <Grid columns={2}>
@@ -41,6 +49,10 @@ class AcuarelaDetail extends React.Component {
           <br /> {material}
           <br /> {country}
         </Grid.Column>
+        <Grid.Row>
+          <Button onClick={this.handleEdit}>Edit</Button>
+          <Button onClick={this.handleDelete}>Delete</Button>
+        </Grid.Row>
       </Grid>
     );
   }
