@@ -1,6 +1,6 @@
 import { connect } from 'react-redux';
 import React from 'react';
-import { Container } from 'semantic-ui-react';
+import { Container, Segment } from 'semantic-ui-react';
 
 import AcuarelasList from '../acuarelasList/acuarelaList';
 import { getAcuarelasByCurrentUser, getAllAcuarelas } from '../../../actions/acuarelaActions';
@@ -12,12 +12,14 @@ class AcuarelasByUser extends React.Component {
 
   render() {
     return (
-      <Container style={{paddingTop:'20px'}}>
-        <AcuarelasList
-          acuarelas={this.props.acuarelas}
-          loading={this.props.loading}
-        />
-      </Container>
+      <Segment style={{ minHeight: 500, padding: '50px' }}>
+        <Container style={{paddingTop:'20px'}}>
+          <AcuarelasList
+            acuarelas={this.props.acuarelas}
+            loading={this.props.loading}
+          />
+        </Container>
+      </Segment>
     );
   }
 }

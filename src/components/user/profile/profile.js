@@ -18,7 +18,7 @@ class Profile extends React.Component {
     const { value } = data;
     if (value === 'logout') {
       this.props.logoutUSer();
-      this.props.history.push('/login');
+      this.props.history.push('/');
     }
     //TODO user switch
     if (value === 'myAcuarelas') {
@@ -60,6 +60,7 @@ class Profile extends React.Component {
         options={options}
         pointing='top right'
         icon={null}
+        style={{top:'13px'}}
         onChange={this.handleItemClick}
       />
     );

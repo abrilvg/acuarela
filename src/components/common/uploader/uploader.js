@@ -5,7 +5,7 @@ import { Form} from 'semantic-ui-react';
 import PropTypes from 'prop-types';
 import React from 'react';
 
-import IDGenerator from '../idGenerator';
+import IDGenerator from '../idGenerator/idGenerator';
 import {
   errorLoadingPictures,
   successLoadingPictures,

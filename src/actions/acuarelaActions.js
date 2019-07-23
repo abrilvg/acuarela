@@ -1,4 +1,4 @@
-import { GET, POST } from '../api/api';
+import { GET, POST, notAuthorizedGET } from '../api/api';
 import UserSession from '../actions/userSession/userSession';
 
 const url = 'acuarelas';
@@ -7,7 +7,7 @@ export const getAllAcuarelas = (dispatch) => {
   dispatch({
     type: 'FETCH_ACUARELAS_START'
   });
-  GET(url, dispatch)
+  notAuthorizedGET(url, dispatch)
     .then(response => {
       dispatch({
         type: 'FETCH_ACUARELAS_FULFILLED',

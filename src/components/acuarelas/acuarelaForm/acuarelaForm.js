@@ -3,9 +3,9 @@ import { Button, Form, Input, Select, Grid} from 'semantic-ui-react';
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 
-import CustomTextInput from '../../common/customTextInput';
-import ValidatorHelper from '../../common/validator';
-import Uploader from '../../common/uploader';
+import CustomTextInput from '../../common/customTextInput/customTextInput';
+import ValidatorHelper from '../../common/validator/validator';
+import Uploader from '../../common/uploader/uploader';
 
 //TODO bring to other place
 const countryOptions = [
@@ -100,9 +100,9 @@ class AcuarelaForm extends Component {
           <Form onSubmit={this.handleSubmit} loading={loading} error>
             <CustomTextInput
               name='name'
-              label='Full name:'
               control={Input}
-              placeholder='Enter acuarela name'
+              icon='paint brush'
+              placeholder='Acuarela name'
               validators={[ValidatorHelper.notEmptyText(), ValidatorHelper.maxLength(20)]}
               onChange={this.handleChange}
               required={true}
@@ -111,18 +111,17 @@ class AcuarelaForm extends Component {
             <DateInput
                 clearable
                 name='createdDate'
+                iconPosition='left'
                 value={this.state.createdDate}
                 onChange={this.handleChangeDate}
                 maxDate={new Date()}
                 popupPosition='bottom right'
                 closable
-                label='Year of:'
-                placeholder="DD-MM-YYYY"
+                placeholder="Year of"
             />
 
             <CustomTextInput
               name='technique'
-              label='Select technique applied:'
               control={Select}
               placeholder=''
               validators={[ValidatorHelper.notEmptyText()]}
@@ -133,7 +132,6 @@ class AcuarelaForm extends Component {
 
             <CustomTextInput
               name='country'
-              label='Select your contry:'
               control={Select}
               placeholder=''
               validators={[ValidatorHelper.notEmptyText()]}
@@ -143,9 +141,10 @@ class AcuarelaForm extends Component {
             />
 
             <Uploader
-              label='Select your pictures:'
               onChange={this.handleUploadImages}
             />
+            
+            <br></br>
 
             <Button primary type='submit' disabled={!this.isSubmitEnabled}>Save</Button>
           </Form>

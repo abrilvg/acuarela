@@ -2,7 +2,7 @@ import { Message, Form} from 'semantic-ui-react';
 import PropTypes from 'prop-types';
 import React from 'react';
 
-import ValidatorHelper from '../validator';
+import ValidatorHelper from '../validator/validator';
 
 /**
  * Based on Form.Input supported field in Semantic ui ^0.83.0
@@ -37,10 +37,12 @@ export default class CustomTextInput extends React.Component {
 
   render() {
     return (
-      <div>
+      <div style={{ paddingBottom: '10px' }}>
         <Form.Input
           control={this.props.control? this.props.control: 'Input'}
           label={this.props.label}
+          icon={this.props.icon? this.props.icon : ''}
+          iconPosition='left'
           placeholder={this.props.placeholder? this.props.placeholder: ''}
           type={this.props.type? this.props.type: 'text'}
           onChange={this.handleChange}

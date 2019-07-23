@@ -7,16 +7,17 @@ import {
   Grid,
   Header,
   Message,
-  Icon
+  Icon,
+  Segment
 } from 'semantic-ui-react';
 import { connect } from 'react-redux';
 import { DateInput } from 'semantic-ui-calendar-react';
 import React from 'react';
 import { Redirect, Link } from 'react-router-dom';
 
-import CustomTextInput from '../../common/customTextInput';
+import CustomTextInput from '../../common/customTextInput/customTextInput';
 import { createUser } from '../../../actions/userActions';
-import ValidatorHelper from '../../../components/common/validator';
+import ValidatorHelper from '../../common/validator/validator';
 
 import './signup.css';
 
@@ -88,41 +89,25 @@ class Signup extends React.Component {
   render() {
     const { loading, user } = this.props;
 
-    // let errorMessage;
-
-    // if (error.data || error.message) {
-    //   errorMessage = (
-    //     <Message icon negative>
-    //       <Icon name='dont' />
-    //       <Message.Content>
-    //           <Message.Header>{error.data? error.data.message: error.message}</Message.Header>
-    //           Please try again
-    //      </Message.Content>
-    //     </Message>
-    //   );
-    // }
-
     if (user.isLoggedIn) return <Redirect to='/' />;
 
     return (
-      <div>
-        <Grid columns={3} container>
-          <Grid.Column>
-          </Grid.Column>
-          <Grid.Column>
-            <Header as='h2' textAlign='center'>
-              <Icon.Group size='large'>
-                <Icon name='paint brush' />
-              </Icon.Group>
-              ACUAS
-            </Header>
-
-            <Form loading={loading} onSubmit={this.handleSubmit} error>
+      <div style={{ minHeight: 700, paddingTop: '50px'}}>
+        <Grid textAlign='center' style={{ height: '100%' }} verticalAlign='middle'>
+        <Grid.Column style={{ maxWidth: 450 }}>
+          <Header as='h2' style={{ color: 'white' }} textAlign='center'>
+            <Icon.Group size='large'>
+              <Icon name='paint brush' />
+            </Icon.Group>
+            ACUAS
+          </Header>
+          <Form size='large' loading={loading} onSubmit={this.handleSubmit} error>
+            <Segment>
               <CustomTextInput
                 name='name'
-                label='Full name:'
                 control={Input}
-                placeholder='Enter your full name'
+                icon='user'
+                placeholder='Full name'
                 validators={[ValidatorHelper.notEmptyText(), ValidatorHelper.maxLength(35)]}
                 onChange={this.handleChange}
                 required={true}
@@ -130,9 +115,9 @@ class Signup extends React.Component {
 
               <CustomTextInput
                 name='userName'
-                label='User name:'
                 control={Input}
-                placeholder='Enter user name'
+                icon='user'
+                placeholder='User name'
                 validators={[ValidatorHelper.notEmptyText(), ValidatorHelper.maxLength(35)]}
                 onChange={this.handleChange}
                 required={true}
@@ -141,18 +126,18 @@ class Signup extends React.Component {
               <DateInput
                 clearable
                 name='birthDate'
+                icon='birthday cake'
+                iconPosition='left'
                 value={this.state.birthDate}
                 onChange={this.handleChangeDate}
                 maxDate={new Date()}
                 popupPosition='bottom right'
                 closable
-                label='Birth date:'
-                placeholder="DD-MM-YYYY"
+                placeholder="Birthdate"
               />
 
               <CustomTextInput
                 name='country'
-                label='Select your contry:'
                 control={Select}
                 placeholder=''
                 validators={[ValidatorHelper.notEmptyText()]}
@@ -163,9 +148,9 @@ class Signup extends React.Component {
 
               <CustomTextInput
                 name='phoneNumber'
-                label='Phone number:'
                 control={Input}
-                placeholder='Enter phone number'
+                icon='call'
+                placeholder='Phone number'
                 validators={[ValidatorHelper.matchPhoneNumber()]}
                 onChange={this.handleChange}
                 required={false}
@@ -173,9 +158,9 @@ class Signup extends React.Component {
 
               <CustomTextInput
                 name='email'
-                label='Email:'
                 control={Input}
-                placeholder='e.g. joe@schmoe.com'
+                icon='mail'
+                placeholder='Email address'
                 validators={[ValidatorHelper.notEmptyText(), ValidatorHelper.matchEmail()]}
                 onChange={this.handleChange}
                 required={true}
@@ -183,9 +168,10 @@ class Signup extends React.Component {
 
               <CustomTextInput
                 name='password'
-                label='Password:'
                 type='password'
-                placeholder='Enter password'
+                control={Input}
+                icon='lock'
+                placeholder='Password'
                 validators={[ValidatorHelper.notEmptyText(), ValidatorHelper.maxLength(15), ValidatorHelper.minLength(8)]}
                 onChange={this.handleChange}
                 required={true}
@@ -193,7 +179,6 @@ class Signup extends React.Component {
 
               <CustomTextInput
                 name='description'
-                label='Description:'
                 control={TextArea}
                 placeholder='Write a litlte description about you'
                 validators={[ValidatorHelper.maxLength(300)]}
@@ -201,26 +186,16 @@ class Signup extends React.Component {
                 required={false}
               />
 
-              <Grid>
-                <Grid.Row columns={2}>
-                  <Grid.Column>
-                    {/* <Form.Input control={Button} disabled={!isSubmitEnabled}>Submit</Form.Input> */}
-                    <Button primary disabled={!this.isSubmitEnabled}>Submit</Button>
-                  </Grid.Column>
-                  <Grid.Column>
-                    <Link to='/login'>Cancel</Link>
-                  </Grid.Column>
-                </Grid.Row>
-              </Grid>
-
-            </Form>
-            {/* {errorMessage} */}
-
-          </Grid.Column>
-          <Grid.Column>
+              <Button primary disabled={!this.isSubmitEnabled} color='teal' fluid size='large'>
+                Create account
+              </Button>
+            </Segment>
+          </Form>
+          <Message>
+            <Link to='/login'>Back to login</Link>
+          </Message>
           </Grid.Column>
         </Grid>
-
       </div>
     );
   }

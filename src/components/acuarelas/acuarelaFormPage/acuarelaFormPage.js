@@ -1,6 +1,7 @@
 import { connect } from 'react-redux';
 import React from 'react';
 import { withRouter } from 'react-router-dom';
+import { Segment } from 'semantic-ui-react';
 
 import AcuarelaForm from '../acuarelaForm/acuarelaForm';
 import { saveAcuarela } from '../../../actions/acuarelaActions';
@@ -36,11 +37,13 @@ class AcuarelaFormPage extends React.Component {
 
   render() {
     return (
-      <AcuarelaForm
-        // acuarela={this.props.acuarela}
-        loading={this.props.loading}
-        onSubmit={this.handleSubmit}
-      />
+      <Segment style={{ minHeight: 500, padding: '50px' }}>
+        <AcuarelaForm
+          // acuarela={this.props.acuarela}
+          loading={this.props.loading}
+          onSubmit={this.handleSubmit}
+        />
+      </Segment>
     );
   }
 }
